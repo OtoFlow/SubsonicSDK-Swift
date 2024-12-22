@@ -1,0 +1,229 @@
+openapi: 3.1.0
+info:
+  title: Subsonic API
+  version: 1.16.1
+paths:
+  /ping:
+    get:
+      operationId: ping
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    $ref: '#/components/schemas/Response'
+
+  /ping.view:
+    post:
+      operationId: signIn
+      parameters:
+        - name: u
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: t
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: s
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+
+  /getRandomSongs:
+    get:
+      operationId: getRandomSongs
+      parameters:
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: genre
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: fromYear
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: toYear
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: musicFolderId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - randomSongs
+                        properties:
+                          randomSongs:
+                            $ref: '#/components/schemas/Songs'
+
+components:
+  schemas:
+    ResponseError:
+      type: integer
+      enum: [0, 10, 20, 30, 40, 41, 50, 60, 70]
+    SubsonicResponse:
+      type: object
+      required:
+        - subsonic-response
+      properties:
+        subsonic-response:
+          $ref: '#/components/schemas/Response'
+    Response:
+      type: object
+      required:
+        - status
+        - version
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseStatus'
+          xml:
+            attribute: true
+        version:
+          $ref: '#/components/schemas/Version'
+          xml:
+            attribute: true
+        type:
+          type: string
+        serverVersion:
+          type: string
+        openSubsonic:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/ResponseError'
+      xml:
+        name: subsonic-response
+        namespace: http://subsonic.org/restapi
+    ResponseStatus:
+      type: string
+      enum:
+        - ok
+        - failed
+    Version:
+      type: string
+      pattern: '^\d+\.\d+\.\d+$'
+    Artist:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        artistImageUrl:
+          type: string
+        starred:
+          type: string
+          format: date-time
+        userRating:
+          type: integer
+        averageRating:
+          type: number
+          format: double
+      xml:
+        name: artist
+    Songs:
+      required:
+        - song
+      type: object
+      properties:
+        song:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
+    Song:
+      type: object
+      $ref: '#/components/schemas/Child'
+      xml:
+        name: song
+    Child:
+      required:
+        - id
+        - isDir
+        - title
+      type: object
+      properties:
+        id:
+          type: string
+        parent:
+          type: string
+        isDir:
+          type: boolean
+        title:
+          type: string
+        album:
+          type: string
+        artist:
+          type: string
+        track:
+          type: integer
+        year:
+          type: integer
+        genre:
+          type: string
+        duration:
+          type: integer
+        isVideo:
+          type: boolean
+        playCount:
+          type: integer
+          format: long
+        discNumber:
+          type: integer
+        created:
+          type: string
+          format: date-time
+        starred:
+          type: string
+          format: date-time
+        albumId:
+          type: string
+        artistId:
+          type: string
