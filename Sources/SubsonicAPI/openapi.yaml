@@ -52,6 +52,64 @@ paths:
               schema:
                 $ref: '#/components/schemas/Response'
 
+  /getAlbumList:
+    get:
+      operationId: getAlbumList
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/ListType'
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: fromYear
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: toYear
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: genre
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: musicFolderId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - albumList
+                        properties:
+                          albumList:
+                            $ref: '#/components/schemas/AlbumList'
+
   /getRandomSongs:
     get:
       operationId: getRandomSongs
@@ -147,6 +205,37 @@ components:
     Version:
       type: string
       pattern: '^\d+\.\d+\.\d+$'
+
+    ListType:
+      type: string
+      enum:
+        - random
+        - newest
+        - highest
+        - frequent
+        - recent
+        - alphabeticalByName
+        - alphabeticalByArtist
+        - starred
+        - byYear
+        - byGenre
+
+    AlbumList:
+      required:
+        - album
+      type: object
+      properties:
+        album:
+          type: array
+          items:
+            $ref: '#/components/schemas/Album'
+
+    Album:
+      type: object
+      $ref: '#/components/schemas/Child'
+      xml:
+        name: album
+
     Artist:
       required:
         - id
