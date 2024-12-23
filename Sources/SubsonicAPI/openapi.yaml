@@ -2,24 +2,16 @@ openapi: 3.1.0
 info:
   title: Subsonic API
   version: 1.16.1
+tags:
+  - name: Authentication
+  - name: System
+  - name: Lists
+    description: Album/Song Lists
 paths:
-  /ping:
-    get:
-      operationId: ping
-      responses:
-        '200':
-          description: 'ok'
-          content:
-            application/json:
-              schema:
-                required:
-                  - subsonic-response
-                properties:
-                  subsonic-response:
-                    $ref: '#/components/schemas/Response'
-
   /ping.view:
     post:
+      tags:
+        - Authentication
       operationId: signIn
       parameters:
         - name: u
@@ -51,9 +43,26 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Response'
-
+  /ping:
+    get:
+      tags:
+        - System
+      operationId: ping
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    $ref: '#/components/schemas/Response'
   /getAlbumList:
     get:
+      tags:
+        - Lists
       operationId: getAlbumList
       parameters:
         - name: type
@@ -109,9 +118,10 @@ paths:
                         properties:
                           albumList:
                             $ref: '#/components/schemas/AlbumList'
-
   /getRandomSongs:
     get:
+      tags:
+        - Lists
       operationId: getRandomSongs
       parameters:
         - name: size
@@ -159,7 +169,6 @@ paths:
                         properties:
                           randomSongs:
                             $ref: '#/components/schemas/Songs'
-
 components:
   schemas:
     ResponseError:

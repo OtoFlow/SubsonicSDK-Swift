@@ -37,64 +37,6 @@ public struct Client: APIProtocol {
     private var converter: Converter {
         client.converter
     }
-    /// - Remark: HTTP `GET /ping`.
-    /// - Remark: Generated from `#/paths//ping/get(ping)`.
-    public func ping(_ input: Operations.ping.Input) async throws -> Operations.ping.Output {
-        try await client.send(
-            input: input,
-            forOperation: Operations.ping.id,
-            serializer: { input in
-                let path = try converter.renderedPath(
-                    template: "/ping",
-                    parameters: []
-                )
-                var request: HTTPTypes.HTTPRequest = .init(
-                    soar_path: path,
-                    method: .get
-                )
-                suppressMutabilityWarning(&request)
-                converter.setAcceptHeader(
-                    in: &request.headerFields,
-                    contentTypes: input.headers.accept
-                )
-                return (request, nil)
-            },
-            deserializer: { response, responseBody in
-                switch response.status.code {
-                case 200:
-                    let contentType = converter.extractContentTypeIfPresent(in: response.headerFields)
-                    let body: Operations.ping.Output.Ok.Body
-                    let chosenContentType = try converter.bestContentType(
-                        received: contentType,
-                        options: [
-                            "application/json"
-                        ]
-                    )
-                    switch chosenContentType {
-                    case "application/json":
-                        body = try await converter.getResponseBodyAsJSON(
-                            Operations.ping.Output.Ok.Body.jsonPayload.self,
-                            from: responseBody,
-                            transforming: { value in
-                                .json(value)
-                            }
-                        )
-                    default:
-                        preconditionFailure("bestContentType chose an invalid content type.")
-                    }
-                    return .ok(.init(body: body))
-                default:
-                    return .undocumented(
-                        statusCode: response.status.code,
-                        .init(
-                            headerFields: response.headerFields,
-                            body: responseBody
-                        )
-                    )
-                }
-            }
-        )
-    }
     /// - Remark: HTTP `POST /ping.view`.
     /// - Remark: Generated from `#/paths//ping.view/post(signIn)`.
     public func signIn(_ input: Operations.signIn.Input) async throws -> Operations.signIn.Output {
@@ -165,6 +107,64 @@ public struct Client: APIProtocol {
                             from: responseBody,
                             transforming: { value in
                                 .xml(value)
+                            }
+                        )
+                    default:
+                        preconditionFailure("bestContentType chose an invalid content type.")
+                    }
+                    return .ok(.init(body: body))
+                default:
+                    return .undocumented(
+                        statusCode: response.status.code,
+                        .init(
+                            headerFields: response.headerFields,
+                            body: responseBody
+                        )
+                    )
+                }
+            }
+        )
+    }
+    /// - Remark: HTTP `GET /ping`.
+    /// - Remark: Generated from `#/paths//ping/get(ping)`.
+    public func ping(_ input: Operations.ping.Input) async throws -> Operations.ping.Output {
+        try await client.send(
+            input: input,
+            forOperation: Operations.ping.id,
+            serializer: { input in
+                let path = try converter.renderedPath(
+                    template: "/ping",
+                    parameters: []
+                )
+                var request: HTTPTypes.HTTPRequest = .init(
+                    soar_path: path,
+                    method: .get
+                )
+                suppressMutabilityWarning(&request)
+                converter.setAcceptHeader(
+                    in: &request.headerFields,
+                    contentTypes: input.headers.accept
+                )
+                return (request, nil)
+            },
+            deserializer: { response, responseBody in
+                switch response.status.code {
+                case 200:
+                    let contentType = converter.extractContentTypeIfPresent(in: response.headerFields)
+                    let body: Operations.ping.Output.Ok.Body
+                    let chosenContentType = try converter.bestContentType(
+                        received: contentType,
+                        options: [
+                            "application/json"
+                        ]
+                    )
+                    switch chosenContentType {
+                    case "application/json":
+                        body = try await converter.getResponseBodyAsJSON(
+                            Operations.ping.Output.Ok.Body.jsonPayload.self,
+                            from: responseBody,
+                            transforming: { value in
+                                .json(value)
                             }
                         )
                     default:

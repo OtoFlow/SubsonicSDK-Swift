@@ -11,12 +11,12 @@ import struct Foundation.Date
 #endif
 /// A type that performs HTTP operations defined by the OpenAPI document.
 public protocol APIProtocol: Sendable {
-    /// - Remark: HTTP `GET /ping`.
-    /// - Remark: Generated from `#/paths//ping/get(ping)`.
-    func ping(_ input: Operations.ping.Input) async throws -> Operations.ping.Output
     /// - Remark: HTTP `POST /ping.view`.
     /// - Remark: Generated from `#/paths//ping.view/post(signIn)`.
     func signIn(_ input: Operations.signIn.Input) async throws -> Operations.signIn.Output
+    /// - Remark: HTTP `GET /ping`.
+    /// - Remark: Generated from `#/paths//ping/get(ping)`.
+    func ping(_ input: Operations.ping.Input) async throws -> Operations.ping.Output
     /// - Remark: HTTP `GET /getAlbumList`.
     /// - Remark: Generated from `#/paths//getAlbumList/get(getAlbumList)`.
     func getAlbumList(_ input: Operations.getAlbumList.Input) async throws -> Operations.getAlbumList.Output
@@ -27,11 +27,6 @@ public protocol APIProtocol: Sendable {
 
 /// Convenience overloads for operation inputs.
 extension APIProtocol {
-    /// - Remark: HTTP `GET /ping`.
-    /// - Remark: Generated from `#/paths//ping/get(ping)`.
-    public func ping(headers: Operations.ping.Input.Headers = .init()) async throws -> Operations.ping.Output {
-        try await ping(Operations.ping.Input(headers: headers))
-    }
     /// - Remark: HTTP `POST /ping.view`.
     /// - Remark: Generated from `#/paths//ping.view/post(signIn)`.
     public func signIn(
@@ -42,6 +37,11 @@ extension APIProtocol {
             query: query,
             headers: headers
         ))
+    }
+    /// - Remark: HTTP `GET /ping`.
+    /// - Remark: Generated from `#/paths//ping/get(ping)`.
+    public func ping(headers: Operations.ping.Input.Headers = .init()) async throws -> Operations.ping.Output {
+        try await ping(Operations.ping.Input(headers: headers))
     }
     /// - Remark: HTTP `GET /getAlbumList`.
     /// - Remark: Generated from `#/paths//getAlbumList/get(getAlbumList)`.
@@ -375,129 +375,6 @@ public enum Components {
 
 /// API operations, with input and output types, generated from `#/paths` in the OpenAPI document.
 public enum Operations {
-    /// - Remark: HTTP `GET /ping`.
-    /// - Remark: Generated from `#/paths//ping/get(ping)`.
-    public enum ping {
-        public static let id: Swift.String = "ping"
-        public struct Input: Sendable, Hashable {
-            /// - Remark: Generated from `#/paths/ping/GET/header`.
-            public struct Headers: Sendable, Hashable {
-                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.ping.AcceptableContentType>]
-                /// Creates a new `Headers`.
-                ///
-                /// - Parameters:
-                ///   - accept:
-                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.ping.AcceptableContentType>] = .defaultValues()) {
-                    self.accept = accept
-                }
-            }
-            public var headers: Operations.ping.Input.Headers
-            /// Creates a new `Input`.
-            ///
-            /// - Parameters:
-            ///   - headers:
-            public init(headers: Operations.ping.Input.Headers = .init()) {
-                self.headers = headers
-            }
-        }
-        @frozen public enum Output: Sendable, Hashable {
-            public struct Ok: Sendable, Hashable {
-                /// - Remark: Generated from `#/paths/ping/GET/responses/200/content`.
-                @frozen public enum Body: Sendable, Hashable {
-                    /// - Remark: Generated from `#/paths/ping/GET/responses/200/content/json`.
-                    public struct jsonPayload: Codable, Hashable, Sendable {
-                        /// - Remark: Generated from `#/paths/ping/GET/responses/200/content/json/subsonic-response`.
-                        public var subsonic_hyphen_response: Components.Schemas.Response
-                        /// Creates a new `jsonPayload`.
-                        ///
-                        /// - Parameters:
-                        ///   - subsonic_hyphen_response:
-                        public init(subsonic_hyphen_response: Components.Schemas.Response) {
-                            self.subsonic_hyphen_response = subsonic_hyphen_response
-                        }
-                        public enum CodingKeys: String, CodingKey {
-                            case subsonic_hyphen_response = "subsonic-response"
-                        }
-                    }
-                    /// - Remark: Generated from `#/paths/ping/GET/responses/200/content/application\/json`.
-                    case json(Operations.ping.Output.Ok.Body.jsonPayload)
-                    /// The associated value of the enum case if `self` is `.json`.
-                    ///
-                    /// - Throws: An error if `self` is not `.json`.
-                    /// - SeeAlso: `.json`.
-                    public var json: Operations.ping.Output.Ok.Body.jsonPayload {
-                        get throws {
-                            switch self {
-                            case let .json(body):
-                                return body
-                            }
-                        }
-                    }
-                }
-                /// Received HTTP response body
-                public var body: Operations.ping.Output.Ok.Body
-                /// Creates a new `Ok`.
-                ///
-                /// - Parameters:
-                ///   - body: Received HTTP response body
-                public init(body: Operations.ping.Output.Ok.Body) {
-                    self.body = body
-                }
-            }
-            /// ok
-            ///
-            /// - Remark: Generated from `#/paths//ping/get(ping)/responses/200`.
-            ///
-            /// HTTP response code: `200 ok`.
-            case ok(Operations.ping.Output.Ok)
-            /// The associated value of the enum case if `self` is `.ok`.
-            ///
-            /// - Throws: An error if `self` is not `.ok`.
-            /// - SeeAlso: `.ok`.
-            public var ok: Operations.ping.Output.Ok {
-                get throws {
-                    switch self {
-                    case let .ok(response):
-                        return response
-                    default:
-                        try throwUnexpectedResponseStatus(
-                            expectedStatus: "ok",
-                            response: self
-                        )
-                    }
-                }
-            }
-            /// Undocumented response.
-            ///
-            /// A response with a code that is not documented in the OpenAPI document.
-            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
-        }
-        @frozen public enum AcceptableContentType: AcceptableProtocol {
-            case json
-            case other(Swift.String)
-            public init?(rawValue: Swift.String) {
-                switch rawValue.lowercased() {
-                case "application/json":
-                    self = .json
-                default:
-                    self = .other(rawValue)
-                }
-            }
-            public var rawValue: Swift.String {
-                switch self {
-                case let .other(string):
-                    return string
-                case .json:
-                    return "application/json"
-                }
-            }
-            public static var allCases: [Self] {
-                [
-                    .json
-                ]
-            }
-        }
-    }
     /// - Remark: HTTP `POST /ping.view`.
     /// - Remark: Generated from `#/paths//ping.view/post(signIn)`.
     public enum signIn {
@@ -677,6 +554,129 @@ public enum Operations {
                 [
                     .json,
                     .xml
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `GET /ping`.
+    /// - Remark: Generated from `#/paths//ping/get(ping)`.
+    public enum ping {
+        public static let id: Swift.String = "ping"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/ping/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.ping.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.ping.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.ping.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - headers:
+            public init(headers: Operations.ping.Input.Headers = .init()) {
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/ping/GET/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/ping/GET/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/ping/GET/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Components.Schemas.Response
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Components.Schemas.Response) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/ping/GET/responses/200/content/application\/json`.
+                    case json(Operations.ping.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.ping.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.ping.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.ping.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//ping/get(ping)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.ping.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.ping.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
                 ]
             }
         }
