@@ -8,6 +8,7 @@ tags:
   - name: Browsing
   - name: Lists
     description: Album/Song Lists
+  - name: Media Annotation
 paths:
   /ping.view:
     post:
@@ -237,6 +238,70 @@ paths:
                         properties:
                           songsByGenre:
                             $ref: '#/components/schemas/Songs'
+  /star:
+    post:
+      tags:
+        - Media Annotation
+      operationId: star
+      parameters:
+        - name: id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: albumId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: artistId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    $ref: '#/components/schemas/Response'
+  /unstar:
+    post:
+      tags:
+        - Media Annotation
+      operationId: unstar
+      parameters:
+        - name: id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: albumId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: artistId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    $ref: '#/components/schemas/Response'
 components:
   schemas:
     ResponseError:

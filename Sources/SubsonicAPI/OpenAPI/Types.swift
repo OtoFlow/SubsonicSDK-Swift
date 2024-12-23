@@ -29,6 +29,12 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /getSongsByGenre`.
     /// - Remark: Generated from `#/paths//getSongsByGenre/get(getSongsByGenre)`.
     func getSongsByGenre(_ input: Operations.getSongsByGenre.Input) async throws -> Operations.getSongsByGenre.Output
+    /// - Remark: HTTP `POST /star`.
+    /// - Remark: Generated from `#/paths//star/post(star)`.
+    func star(_ input: Operations.star.Input) async throws -> Operations.star.Output
+    /// - Remark: HTTP `POST /unstar`.
+    /// - Remark: Generated from `#/paths//unstar/post(unstar)`.
+    func unstar(_ input: Operations.unstar.Input) async throws -> Operations.unstar.Output
 }
 
 /// Convenience overloads for operation inputs.
@@ -83,6 +89,28 @@ extension APIProtocol {
         headers: Operations.getSongsByGenre.Input.Headers = .init()
     ) async throws -> Operations.getSongsByGenre.Output {
         try await getSongsByGenre(Operations.getSongsByGenre.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `POST /star`.
+    /// - Remark: Generated from `#/paths//star/post(star)`.
+    public func star(
+        query: Operations.star.Input.Query = .init(),
+        headers: Operations.star.Input.Headers = .init()
+    ) async throws -> Operations.star.Output {
+        try await star(Operations.star.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `POST /unstar`.
+    /// - Remark: Generated from `#/paths//unstar/post(unstar)`.
+    public func unstar(
+        query: Operations.unstar.Input.Query = .init(),
+        headers: Operations.unstar.Input.Headers = .init()
+    ) async throws -> Operations.unstar.Output {
+        try await unstar(Operations.unstar.Input(
             query: query,
             headers: headers
         ))
@@ -1489,6 +1517,312 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.ok`.
             /// - SeeAlso: `.ok`.
             public var ok: Operations.getSongsByGenre.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `POST /star`.
+    /// - Remark: Generated from `#/paths//star/post(star)`.
+    public enum star {
+        public static let id: Swift.String = "star"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/star/POST/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/star/POST/query/id`.
+                public var id: Swift.String?
+                /// - Remark: Generated from `#/paths/star/POST/query/albumId`.
+                public var albumId: Swift.String?
+                /// - Remark: Generated from `#/paths/star/POST/query/artistId`.
+                public var artistId: Swift.String?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                ///   - albumId:
+                ///   - artistId:
+                public init(
+                    id: Swift.String? = nil,
+                    albumId: Swift.String? = nil,
+                    artistId: Swift.String? = nil
+                ) {
+                    self.id = id
+                    self.albumId = albumId
+                    self.artistId = artistId
+                }
+            }
+            public var query: Operations.star.Input.Query
+            /// - Remark: Generated from `#/paths/star/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.star.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.star.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.star.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.star.Input.Query = .init(),
+                headers: Operations.star.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/star/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/star/POST/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/star/POST/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Components.Schemas.Response
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Components.Schemas.Response) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/star/POST/responses/200/content/application\/json`.
+                    case json(Operations.star.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.star.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.star.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.star.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//star/post(star)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.star.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.star.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `POST /unstar`.
+    /// - Remark: Generated from `#/paths//unstar/post(unstar)`.
+    public enum unstar {
+        public static let id: Swift.String = "unstar"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/unstar/POST/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/unstar/POST/query/id`.
+                public var id: Swift.String?
+                /// - Remark: Generated from `#/paths/unstar/POST/query/albumId`.
+                public var albumId: Swift.String?
+                /// - Remark: Generated from `#/paths/unstar/POST/query/artistId`.
+                public var artistId: Swift.String?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                ///   - albumId:
+                ///   - artistId:
+                public init(
+                    id: Swift.String? = nil,
+                    albumId: Swift.String? = nil,
+                    artistId: Swift.String? = nil
+                ) {
+                    self.id = id
+                    self.albumId = albumId
+                    self.artistId = artistId
+                }
+            }
+            public var query: Operations.unstar.Input.Query
+            /// - Remark: Generated from `#/paths/unstar/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.unstar.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.unstar.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.unstar.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.unstar.Input.Query = .init(),
+                headers: Operations.unstar.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/unstar/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/unstar/POST/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/unstar/POST/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Components.Schemas.Response
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Components.Schemas.Response) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/unstar/POST/responses/200/content/application\/json`.
+                    case json(Operations.unstar.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.unstar.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.unstar.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.unstar.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//unstar/post(unstar)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.unstar.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.unstar.Output.Ok {
                 get throws {
                     switch self {
                     case let .ok(response):
