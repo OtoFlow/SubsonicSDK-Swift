@@ -2,6 +2,7 @@ import Foundation
 
 public typealias ListType = Components.Schemas.ListType
 public typealias Album = Components.Schemas.Album
+public typealias Song = Components.Schemas.Song
 
 extension SubsonicClient {
     public func getAlbumList(
@@ -24,5 +25,26 @@ extension SubsonicClient {
                 musicFolderId: musicFolderId
             )
         ).ok.body.json.subsonic_hyphen_response.value2.albumList.album
+    }
+
+    public func getRandomSongs() async throws -> [Song] {
+        try await underlyingClient.getRandomSongs()
+            .ok.body.json.subsonic_hyphen_response.value2.randomSongs.song
+    }
+
+    public func getSongsByGenre(
+        _ genre: String,
+        count: Int = 10,
+        offset: Int = 0,
+        musicFolderId: Int? = nil
+    ) async throws -> [Song] {
+        try await underlyingClient.getSongsByGenre(
+            query: .init(
+                genre: genre,
+                count: count,
+                offset: offset,
+                musicFolderId: musicFolderId
+            )
+        ).ok.body.json.subsonic_hyphen_response.value2.songsByGenre.song
     }
 }

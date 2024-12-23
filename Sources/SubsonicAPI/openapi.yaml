@@ -5,6 +5,7 @@ info:
 tags:
   - name: Authentication
   - name: System
+  - name: Browsing
   - name: Lists
     description: Album/Song Lists
 paths:
@@ -59,6 +60,29 @@ paths:
                 properties:
                   subsonic-response:
                     $ref: '#/components/schemas/Response'
+  /getGenres:
+    get:
+      tags:
+        - Browsing
+      operationId: getGenres
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - genres
+                        properties:
+                          genres:
+                            $ref: '#/components/schemas/Genres'
   /getAlbumList:
     get:
       tags:
@@ -169,6 +193,50 @@ paths:
                         properties:
                           randomSongs:
                             $ref: '#/components/schemas/Songs'
+  /getSongsByGenre:
+    get:
+      tags:
+        - Lists
+      operationId: getSongsByGenre
+      parameters:
+        - name: genre
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: musicFolderId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - songsByGenre
+                        properties:
+                          songsByGenre:
+                            $ref: '#/components/schemas/Songs'
 components:
   schemas:
     ResponseError:
@@ -214,7 +282,28 @@ components:
     Version:
       type: string
       pattern: '^\d+\.\d+\.\d+$'
-
+    Genres:
+      required:
+        - genre
+      type: object
+      properties:
+        genre:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+    Genre:
+      required:
+        - value
+        - songCount
+        - albumCount
+      type: object
+      properties:
+        value:
+          type: string
+        songCount:
+          type: integer
+        albumCount:
+          type: integer
     ListType:
       type: string
       enum:

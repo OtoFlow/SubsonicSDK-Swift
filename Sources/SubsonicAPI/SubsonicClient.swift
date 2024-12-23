@@ -79,7 +79,6 @@ public final class SubsonicClient {
     }
 }
 
-public typealias Song = Components.Schemas.Song
 public typealias Artist = Components.Schemas.Artist
 public typealias Response = Components.Schemas.Response
 
@@ -120,10 +119,5 @@ extension SubsonicClient {
             serverVersion: response.serverVersion,
             isOpenSubsonic: response.openSubsonic == true
         )
-    }
-
-    public func getRandomSongs() async throws -> [Song] {
-        try await underlyingClient.getRandomSongs()
-            .ok.body.json.subsonic_hyphen_response.value2.randomSongs.song
     }
 }
