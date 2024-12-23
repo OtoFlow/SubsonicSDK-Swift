@@ -80,13 +80,8 @@ public final class SubsonicClient {
 }
 
 public typealias Artist = Components.Schemas.Artist
-public typealias Response = Components.Schemas.Response
 
 extension SubsonicClient {
-    public func ping() async throws -> Response {
-        try await underlyingClient.ping().ok.body.json.subsonic_hyphen_response
-    }
-
     public func signIn(username: String, password: String) async throws -> AuthenticationResponse {
         let salt = String(UUID().uuidString.prefix(8)).lowercased()
         let token = (password + salt).md5()
