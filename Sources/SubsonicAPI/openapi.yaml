@@ -84,6 +84,35 @@ paths:
                         properties:
                           genres:
                             $ref: '#/components/schemas/Genres'
+  /getAlbum:
+    get:
+      tags:
+        - Browsing
+      operationId: getAlbum
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - album
+                        properties:
+                          album:
+                            $ref: '#/components/schemas/AlbumWithSongsID3'
   /getAlbumList:
     get:
       tags:
@@ -382,7 +411,6 @@ components:
         - starred
         - byYear
         - byGenre
-
     AlbumList:
       required:
         - album
@@ -392,13 +420,58 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Album'
-
     Album:
       type: object
       $ref: '#/components/schemas/Child'
       xml:
         name: album
-
+    AlbumWithSongsID3:
+      allOf:
+        - $ref: '#/components/schemas/AlbumID3'
+        - type: object
+          required:
+            - song
+          properties:
+            song:
+              type: array
+              items:
+                $ref: '#/components/schemas/Song'
+    AlbumID3:
+      required:
+        - id
+        - name
+        - songCount
+        - duration
+        - created
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        artist:
+          type: string
+        artistId:
+          type: string
+        coverArt:
+          type: string
+        songCount:
+          type: integer
+        duration:
+          type: integer
+        playCount:
+          type: integer
+          format: long
+        created:
+          type: string
+          format: date-time
+        starred:
+          type: string
+          format: date-time
+        year:
+          type: integer
+        genre:
+          type: string
     Artist:
       required:
         - id
