@@ -241,6 +241,71 @@ public struct Client: APIProtocol {
             }
         )
     }
+    /// - Remark: HTTP `GET /getArtist`.
+    /// - Remark: Generated from `#/paths//getArtist/get(getArtist)`.
+    public func getArtist(_ input: Operations.getArtist.Input) async throws -> Operations.getArtist.Output {
+        try await client.send(
+            input: input,
+            forOperation: Operations.getArtist.id,
+            serializer: { input in
+                let path = try converter.renderedPath(
+                    template: "/getArtist",
+                    parameters: []
+                )
+                var request: HTTPTypes.HTTPRequest = .init(
+                    soar_path: path,
+                    method: .get
+                )
+                suppressMutabilityWarning(&request)
+                try converter.setQueryItemAsURI(
+                    in: &request,
+                    style: .form,
+                    explode: true,
+                    name: "id",
+                    value: input.query.id
+                )
+                converter.setAcceptHeader(
+                    in: &request.headerFields,
+                    contentTypes: input.headers.accept
+                )
+                return (request, nil)
+            },
+            deserializer: { response, responseBody in
+                switch response.status.code {
+                case 200:
+                    let contentType = converter.extractContentTypeIfPresent(in: response.headerFields)
+                    let body: Operations.getArtist.Output.Ok.Body
+                    let chosenContentType = try converter.bestContentType(
+                        received: contentType,
+                        options: [
+                            "application/json"
+                        ]
+                    )
+                    switch chosenContentType {
+                    case "application/json":
+                        body = try await converter.getResponseBodyAsJSON(
+                            Operations.getArtist.Output.Ok.Body.jsonPayload.self,
+                            from: responseBody,
+                            transforming: { value in
+                                .json(value)
+                            }
+                        )
+                    default:
+                        preconditionFailure("bestContentType chose an invalid content type.")
+                    }
+                    return .ok(.init(body: body))
+                default:
+                    return .undocumented(
+                        statusCode: response.status.code,
+                        .init(
+                            headerFields: response.headerFields,
+                            body: responseBody
+                        )
+                    )
+                }
+            }
+        )
+    }
     /// - Remark: HTTP `GET /getAlbum`.
     /// - Remark: Generated from `#/paths//getAlbum/get(getAlbum)`.
     public func getAlbum(_ input: Operations.getAlbum.Input) async throws -> Operations.getAlbum.Output {

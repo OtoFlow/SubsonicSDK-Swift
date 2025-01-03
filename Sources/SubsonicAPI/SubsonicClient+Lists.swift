@@ -2,6 +2,7 @@ import Foundation
 
 public typealias ListType = Components.Schemas.ListType
 public typealias Album = Components.Schemas.Album
+public typealias AlbumID3 = Components.Schemas.AlbumID3
 public typealias Song = Components.Schemas.Song
 
 extension SubsonicClient {

@@ -85,6 +85,35 @@ paths:
                         properties:
                           genres:
                             $ref: '#/components/schemas/Genres'
+  /getArtist:
+    get:
+      tags:
+        - Browsing
+      operationId: getArtist
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - artist
+                        properties:
+                          artist:
+                            $ref: '#/components/schemas/Artist'
   /getAlbum:
     get:
       tags:
@@ -659,6 +688,10 @@ components:
         averageRating:
           type: number
           format: double
+        album:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlbumID3'
       xml:
         name: artist
     ArtistID3:

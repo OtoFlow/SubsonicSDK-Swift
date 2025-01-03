@@ -3,8 +3,6 @@ import Foundation
 public typealias SearchResult = Components.Schemas.SearchResult
 public typealias SearchResultID3 = Components.Schemas.SearchResultID3
 
-public typealias ArtistID3 = Components.Schemas.ArtistID3
-
 extension SubsonicClient {
     public func search(
         _ query: String,

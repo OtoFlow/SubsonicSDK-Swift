@@ -79,8 +79,6 @@ public final class SubsonicClient {
     }
 }
 
-public typealias Artist = Components.Schemas.Artist
-
 extension SubsonicClient {
     public func signIn(username: String, password: String) async throws -> AuthenticationResponse {
         let salt = String(UUID().uuidString.prefix(8)).lowercased()
