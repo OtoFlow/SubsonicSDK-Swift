@@ -32,9 +32,12 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /getSongsByGenre`.
     /// - Remark: Generated from `#/paths//getSongsByGenre/get(getSongsByGenre)`.
     func getSongsByGenre(_ input: Operations.getSongsByGenre.Input) async throws -> Operations.getSongsByGenre.Output
-    /// - Remark: HTTP `POST /search2.view`.
-    /// - Remark: Generated from `#/paths//search2.view/post(search)`.
+    /// - Remark: HTTP `GET /search2`.
+    /// - Remark: Generated from `#/paths//search2/get(search)`.
     func search(_ input: Operations.search.Input) async throws -> Operations.search.Output
+    /// - Remark: HTTP `GET /search3`.
+    /// - Remark: Generated from `#/paths//search3/get(searchID3)`.
+    func searchID3(_ input: Operations.searchID3.Input) async throws -> Operations.searchID3.Output
     /// - Remark: HTTP `POST /star`.
     /// - Remark: Generated from `#/paths//star/post(star)`.
     func star(_ input: Operations.star.Input) async throws -> Operations.star.Output
@@ -110,13 +113,24 @@ extension APIProtocol {
             headers: headers
         ))
     }
-    /// - Remark: HTTP `POST /search2.view`.
-    /// - Remark: Generated from `#/paths//search2.view/post(search)`.
+    /// - Remark: HTTP `GET /search2`.
+    /// - Remark: Generated from `#/paths//search2/get(search)`.
     public func search(
         query: Operations.search.Input.Query,
         headers: Operations.search.Input.Headers = .init()
     ) async throws -> Operations.search.Output {
         try await search(Operations.search.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `GET /search3`.
+    /// - Remark: Generated from `#/paths//search3/get(searchID3)`.
+    public func searchID3(
+        query: Operations.searchID3.Input.Query,
+        headers: Operations.searchID3.Input.Headers = .init()
+    ) async throws -> Operations.searchID3.Output {
+        try await searchID3(Operations.searchID3.Input(
             query: query,
             headers: headers
         ))
@@ -461,6 +475,35 @@ public enum Components {
                 case song
             }
         }
+        /// - Remark: Generated from `#/components/schemas/SearchResultID3`.
+        public struct SearchResultID3: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/SearchResultID3/artist`.
+            public var artist: [Components.Schemas.ArtistID3]
+            /// - Remark: Generated from `#/components/schemas/SearchResultID3/album`.
+            public var album: [Components.Schemas.AlbumID3]
+            /// - Remark: Generated from `#/components/schemas/SearchResultID3/song`.
+            public var song: [Components.Schemas.Song]
+            /// Creates a new `SearchResultID3`.
+            ///
+            /// - Parameters:
+            ///   - artist:
+            ///   - album:
+            ///   - song:
+            public init(
+                artist: [Components.Schemas.ArtistID3],
+                album: [Components.Schemas.AlbumID3],
+                song: [Components.Schemas.Song]
+            ) {
+                self.artist = artist
+                self.album = album
+                self.song = song
+            }
+            public enum CodingKeys: String, CodingKey {
+                case artist
+                case album
+                case song
+            }
+        }
         /// - Remark: Generated from `#/components/schemas/Artist`.
         public struct Artist: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/Artist/id`.
@@ -506,6 +549,47 @@ public enum Components {
                 case starred
                 case userRating
                 case averageRating
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/ArtistID3`.
+        public struct ArtistID3: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/ArtistID3/id`.
+            public var id: Swift.String
+            /// - Remark: Generated from `#/components/schemas/ArtistID3/name`.
+            public var name: Swift.String
+            /// - Remark: Generated from `#/components/schemas/ArtistID3/coverArt`.
+            public var coverArt: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/ArtistID3/artistImageUrl`.
+            public var artistImageUrl: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/ArtistID3/starred`.
+            public var starred: Foundation.Date?
+            /// Creates a new `ArtistID3`.
+            ///
+            /// - Parameters:
+            ///   - id:
+            ///   - name:
+            ///   - coverArt:
+            ///   - artistImageUrl:
+            ///   - starred:
+            public init(
+                id: Swift.String,
+                name: Swift.String,
+                coverArt: Swift.String? = nil,
+                artistImageUrl: Swift.String? = nil,
+                starred: Foundation.Date? = nil
+            ) {
+                self.id = id
+                self.name = name
+                self.coverArt = coverArt
+                self.artistImageUrl = artistImageUrl
+                self.starred = starred
+            }
+            public enum CodingKeys: String, CodingKey {
+                case id
+                case name
+                case coverArt
+                case artistImageUrl
+                case starred
             }
         }
         /// - Remark: Generated from `#/components/schemas/Songs`.
@@ -1925,28 +2009,28 @@ public enum Operations {
             }
         }
     }
-    /// - Remark: HTTP `POST /search2.view`.
-    /// - Remark: Generated from `#/paths//search2.view/post(search)`.
+    /// - Remark: HTTP `GET /search2`.
+    /// - Remark: Generated from `#/paths//search2/get(search)`.
     public enum search {
         public static let id: Swift.String = "search"
         public struct Input: Sendable, Hashable {
-            /// - Remark: Generated from `#/paths/search2.view/POST/query`.
+            /// - Remark: Generated from `#/paths/search2/GET/query`.
             public struct Query: Sendable, Hashable {
-                /// - Remark: Generated from `#/paths/search2.view/POST/query/query`.
+                /// - Remark: Generated from `#/paths/search2/GET/query/query`.
                 public var query: Swift.String
-                /// - Remark: Generated from `#/paths/search2.view/POST/query/artistCount`.
+                /// - Remark: Generated from `#/paths/search2/GET/query/artistCount`.
                 public var artistCount: Swift.Int?
-                /// - Remark: Generated from `#/paths/search2.view/POST/query/artistOffset`.
+                /// - Remark: Generated from `#/paths/search2/GET/query/artistOffset`.
                 public var artistOffset: Swift.Int?
-                /// - Remark: Generated from `#/paths/search2.view/POST/query/albumCount`.
+                /// - Remark: Generated from `#/paths/search2/GET/query/albumCount`.
                 public var albumCount: Swift.Int?
-                /// - Remark: Generated from `#/paths/search2.view/POST/query/albumOffset`.
+                /// - Remark: Generated from `#/paths/search2/GET/query/albumOffset`.
                 public var albumOffset: Swift.Int?
-                /// - Remark: Generated from `#/paths/search2.view/POST/query/songCount`.
+                /// - Remark: Generated from `#/paths/search2/GET/query/songCount`.
                 public var songCount: Swift.Int?
-                /// - Remark: Generated from `#/paths/search2.view/POST/query/songOffset`.
+                /// - Remark: Generated from `#/paths/search2/GET/query/songOffset`.
                 public var songOffset: Swift.Int?
-                /// - Remark: Generated from `#/paths/search2.view/POST/query/musicFolderId`.
+                /// - Remark: Generated from `#/paths/search2/GET/query/musicFolderId`.
                 public var musicFolderId: Swift.Int?
                 /// Creates a new `Query`.
                 ///
@@ -1980,7 +2064,7 @@ public enum Operations {
                 }
             }
             public var query: Operations.search.Input.Query
-            /// - Remark: Generated from `#/paths/search2.view/POST/header`.
+            /// - Remark: Generated from `#/paths/search2/GET/header`.
             public struct Headers: Sendable, Hashable {
                 public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.search.AcceptableContentType>]
                 /// Creates a new `Headers`.
@@ -2007,30 +2091,30 @@ public enum Operations {
         }
         @frozen public enum Output: Sendable, Hashable {
             public struct Ok: Sendable, Hashable {
-                /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content`.
+                /// - Remark: Generated from `#/paths/search2/GET/responses/200/content`.
                 @frozen public enum Body: Sendable, Hashable {
-                    /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json`.
+                    /// - Remark: Generated from `#/paths/search2/GET/responses/200/content/json`.
                     public struct jsonPayload: Codable, Hashable, Sendable {
-                        /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response`.
+                        /// - Remark: Generated from `#/paths/search2/GET/responses/200/content/json/subsonic-response`.
                         public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
-                            /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response/value1`.
+                            /// - Remark: Generated from `#/paths/search2/GET/responses/200/content/json/subsonic-response/value1`.
                             public var value1: Components.Schemas.Response
-                            /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response/value2`.
+                            /// - Remark: Generated from `#/paths/search2/GET/responses/200/content/json/subsonic-response/value2`.
                             public struct Value2Payload: Codable, Hashable, Sendable {
-                                /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response/value2/searchResult`.
-                                public var searchResult: Components.Schemas.SearchResult
+                                /// - Remark: Generated from `#/paths/search2/GET/responses/200/content/json/subsonic-response/value2/searchResult2`.
+                                public var searchResult2: Components.Schemas.SearchResult
                                 /// Creates a new `Value2Payload`.
                                 ///
                                 /// - Parameters:
-                                ///   - searchResult:
-                                public init(searchResult: Components.Schemas.SearchResult) {
-                                    self.searchResult = searchResult
+                                ///   - searchResult2:
+                                public init(searchResult2: Components.Schemas.SearchResult) {
+                                    self.searchResult2 = searchResult2
                                 }
                                 public enum CodingKeys: String, CodingKey {
-                                    case searchResult
+                                    case searchResult2
                                 }
                             }
-                            /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response/value2`.
+                            /// - Remark: Generated from `#/paths/search2/GET/responses/200/content/json/subsonic-response/value2`.
                             public var value2: Operations.search.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
                             /// Creates a new `subsonic_hyphen_responsePayload`.
                             ///
@@ -2053,7 +2137,7 @@ public enum Operations {
                                 try value2.encode(to: encoder)
                             }
                         }
-                        /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response`.
+                        /// - Remark: Generated from `#/paths/search2/GET/responses/200/content/json/subsonic-response`.
                         public var subsonic_hyphen_response: Operations.search.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
                         /// Creates a new `jsonPayload`.
                         ///
@@ -2066,7 +2150,7 @@ public enum Operations {
                             case subsonic_hyphen_response = "subsonic-response"
                         }
                     }
-                    /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/application\/json`.
+                    /// - Remark: Generated from `#/paths/search2/GET/responses/200/content/application\/json`.
                     case json(Operations.search.Output.Ok.Body.jsonPayload)
                     /// The associated value of the enum case if `self` is `.json`.
                     ///
@@ -2093,7 +2177,7 @@ public enum Operations {
             }
             /// ok
             ///
-            /// - Remark: Generated from `#/paths//search2.view/post(search)/responses/200`.
+            /// - Remark: Generated from `#/paths//search2/get(search)/responses/200`.
             ///
             /// HTTP response code: `200 ok`.
             case ok(Operations.search.Output.Ok)
@@ -2102,6 +2186,226 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.ok`.
             /// - SeeAlso: `.ok`.
             public var ok: Operations.search.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `GET /search3`.
+    /// - Remark: Generated from `#/paths//search3/get(searchID3)`.
+    public enum searchID3 {
+        public static let id: Swift.String = "searchID3"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/search3/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/search3/GET/query/query`.
+                public var query: Swift.String
+                /// - Remark: Generated from `#/paths/search3/GET/query/artistCount`.
+                public var artistCount: Swift.Int?
+                /// - Remark: Generated from `#/paths/search3/GET/query/artistOffset`.
+                public var artistOffset: Swift.Int?
+                /// - Remark: Generated from `#/paths/search3/GET/query/albumCount`.
+                public var albumCount: Swift.Int?
+                /// - Remark: Generated from `#/paths/search3/GET/query/albumOffset`.
+                public var albumOffset: Swift.Int?
+                /// - Remark: Generated from `#/paths/search3/GET/query/songCount`.
+                public var songCount: Swift.Int?
+                /// - Remark: Generated from `#/paths/search3/GET/query/songOffset`.
+                public var songOffset: Swift.Int?
+                /// - Remark: Generated from `#/paths/search3/GET/query/musicFolderId`.
+                public var musicFolderId: Swift.Int?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - query:
+                ///   - artistCount:
+                ///   - artistOffset:
+                ///   - albumCount:
+                ///   - albumOffset:
+                ///   - songCount:
+                ///   - songOffset:
+                ///   - musicFolderId:
+                public init(
+                    query: Swift.String,
+                    artistCount: Swift.Int? = nil,
+                    artistOffset: Swift.Int? = nil,
+                    albumCount: Swift.Int? = nil,
+                    albumOffset: Swift.Int? = nil,
+                    songCount: Swift.Int? = nil,
+                    songOffset: Swift.Int? = nil,
+                    musicFolderId: Swift.Int? = nil
+                ) {
+                    self.query = query
+                    self.artistCount = artistCount
+                    self.artistOffset = artistOffset
+                    self.albumCount = albumCount
+                    self.albumOffset = albumOffset
+                    self.songCount = songCount
+                    self.songOffset = songOffset
+                    self.musicFolderId = musicFolderId
+                }
+            }
+            public var query: Operations.searchID3.Input.Query
+            /// - Remark: Generated from `#/paths/search3/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.searchID3.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.searchID3.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.searchID3.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.searchID3.Input.Query,
+                headers: Operations.searchID3.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/search3/GET/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/search3/GET/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/search3/GET/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/search3/GET/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/search3/GET/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/search3/GET/responses/200/content/json/subsonic-response/value2/searchResult3`.
+                                public var searchResult3: Components.Schemas.SearchResultID3
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - searchResult3:
+                                public init(searchResult3: Components.Schemas.SearchResultID3) {
+                                    self.searchResult3 = searchResult3
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case searchResult3
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/search3/GET/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.searchID3.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.searchID3.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/search3/GET/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.searchID3.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.searchID3.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/search3/GET/responses/200/content/application\/json`.
+                    case json(Operations.searchID3.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.searchID3.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.searchID3.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.searchID3.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//search3/get(searchID3)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.searchID3.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.searchID3.Output.Ok {
                 get throws {
                     switch self {
                     case let .ok(response):

@@ -268,8 +268,8 @@ paths:
                         properties:
                           songsByGenre:
                             $ref: '#/components/schemas/Songs'
-  /search2.view:
-    post:
+  /search2:
+    get:
       tags:
         - Searching
       operationId: search
@@ -328,10 +328,74 @@ paths:
                       - $ref: '#/components/schemas/Response'
                       - type: object
                         required:
-                          - searchResult
+                          - searchResult2
                         properties:
-                          searchResult:
+                          searchResult2:
                             $ref: '#/components/schemas/SearchResult'
+  /search3:
+    get:
+      tags:
+        - Searching
+      operationId: searchID3
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: artistCount
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: artistOffset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: albumCount
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: albumOffset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: songCount
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: songOffset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: musicFolderId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - searchResult3
+                        properties:
+                          searchResult3:
+                            $ref: '#/components/schemas/SearchResultID3'
   /star:
     post:
       tags:
@@ -556,6 +620,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Song'
+    SearchResultID3:
+      required:
+        - artist
+        - album
+        - song
+      type: object
+      properties:
+        artist:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtistID3'
+        album:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlbumID3'
+        song:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
     Artist:
       required:
         - id
@@ -578,6 +661,23 @@ components:
           format: double
       xml:
         name: artist
+    ArtistID3:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        coverArt:
+          type: string
+        artistImageUrl:
+          type: string
+        starred:
+          type: string
+          format: date-time
     Songs:
       required:
         - song
