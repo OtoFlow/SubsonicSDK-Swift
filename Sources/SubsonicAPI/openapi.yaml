@@ -8,6 +8,7 @@ tags:
   - name: Browsing
   - name: Lists
     description: Album/Song Lists
+  - name: Searching
   - name: Media Annotation
 paths:
   /ping.view:
@@ -267,6 +268,70 @@ paths:
                         properties:
                           songsByGenre:
                             $ref: '#/components/schemas/Songs'
+  /search2.view:
+    post:
+      tags:
+        - Searching
+      operationId: search
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: artistCount
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: artistOffset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: albumCount
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: albumOffset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: songCount
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: songOffset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: musicFolderId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - searchResult
+                        properties:
+                          searchResult:
+                            $ref: '#/components/schemas/SearchResult'
   /star:
     post:
       tags:
@@ -472,6 +537,25 @@ components:
           type: integer
         genre:
           type: string
+    SearchResult:
+      required:
+        - artist
+        - album
+        - song
+      type: object
+      properties:
+        artist:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artist'
+        album:
+          type: array
+          items:
+            $ref: '#/components/schemas/Album'
+        song:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
     Artist:
       required:
         - id

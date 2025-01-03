@@ -32,6 +32,9 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /getSongsByGenre`.
     /// - Remark: Generated from `#/paths//getSongsByGenre/get(getSongsByGenre)`.
     func getSongsByGenre(_ input: Operations.getSongsByGenre.Input) async throws -> Operations.getSongsByGenre.Output
+    /// - Remark: HTTP `POST /search2.view`.
+    /// - Remark: Generated from `#/paths//search2.view/post(search)`.
+    func search(_ input: Operations.search.Input) async throws -> Operations.search.Output
     /// - Remark: HTTP `POST /star`.
     /// - Remark: Generated from `#/paths//star/post(star)`.
     func star(_ input: Operations.star.Input) async throws -> Operations.star.Output
@@ -103,6 +106,17 @@ extension APIProtocol {
         headers: Operations.getSongsByGenre.Input.Headers = .init()
     ) async throws -> Operations.getSongsByGenre.Output {
         try await getSongsByGenre(Operations.getSongsByGenre.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `POST /search2.view`.
+    /// - Remark: Generated from `#/paths//search2.view/post(search)`.
+    public func search(
+        query: Operations.search.Input.Query,
+        headers: Operations.search.Input.Headers = .init()
+    ) async throws -> Operations.search.Output {
+        try await search(Operations.search.Input(
             query: query,
             headers: headers
         ))
@@ -416,6 +430,35 @@ public enum Components {
                 case starred
                 case year
                 case genre
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/SearchResult`.
+        public struct SearchResult: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/SearchResult/artist`.
+            public var artist: [Components.Schemas.Artist]
+            /// - Remark: Generated from `#/components/schemas/SearchResult/album`.
+            public var album: [Components.Schemas.Album]
+            /// - Remark: Generated from `#/components/schemas/SearchResult/song`.
+            public var song: [Components.Schemas.Song]
+            /// Creates a new `SearchResult`.
+            ///
+            /// - Parameters:
+            ///   - artist:
+            ///   - album:
+            ///   - song:
+            public init(
+                artist: [Components.Schemas.Artist],
+                album: [Components.Schemas.Album],
+                song: [Components.Schemas.Song]
+            ) {
+                self.artist = artist
+                self.album = album
+                self.song = song
+            }
+            public enum CodingKeys: String, CodingKey {
+                case artist
+                case album
+                case song
             }
         }
         /// - Remark: Generated from `#/components/schemas/Artist`.
@@ -1839,6 +1882,226 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.ok`.
             /// - SeeAlso: `.ok`.
             public var ok: Operations.getSongsByGenre.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `POST /search2.view`.
+    /// - Remark: Generated from `#/paths//search2.view/post(search)`.
+    public enum search {
+        public static let id: Swift.String = "search"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/search2.view/POST/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/search2.view/POST/query/query`.
+                public var query: Swift.String
+                /// - Remark: Generated from `#/paths/search2.view/POST/query/artistCount`.
+                public var artistCount: Swift.Int?
+                /// - Remark: Generated from `#/paths/search2.view/POST/query/artistOffset`.
+                public var artistOffset: Swift.Int?
+                /// - Remark: Generated from `#/paths/search2.view/POST/query/albumCount`.
+                public var albumCount: Swift.Int?
+                /// - Remark: Generated from `#/paths/search2.view/POST/query/albumOffset`.
+                public var albumOffset: Swift.Int?
+                /// - Remark: Generated from `#/paths/search2.view/POST/query/songCount`.
+                public var songCount: Swift.Int?
+                /// - Remark: Generated from `#/paths/search2.view/POST/query/songOffset`.
+                public var songOffset: Swift.Int?
+                /// - Remark: Generated from `#/paths/search2.view/POST/query/musicFolderId`.
+                public var musicFolderId: Swift.Int?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - query:
+                ///   - artistCount:
+                ///   - artistOffset:
+                ///   - albumCount:
+                ///   - albumOffset:
+                ///   - songCount:
+                ///   - songOffset:
+                ///   - musicFolderId:
+                public init(
+                    query: Swift.String,
+                    artistCount: Swift.Int? = nil,
+                    artistOffset: Swift.Int? = nil,
+                    albumCount: Swift.Int? = nil,
+                    albumOffset: Swift.Int? = nil,
+                    songCount: Swift.Int? = nil,
+                    songOffset: Swift.Int? = nil,
+                    musicFolderId: Swift.Int? = nil
+                ) {
+                    self.query = query
+                    self.artistCount = artistCount
+                    self.artistOffset = artistOffset
+                    self.albumCount = albumCount
+                    self.albumOffset = albumOffset
+                    self.songCount = songCount
+                    self.songOffset = songOffset
+                    self.musicFolderId = musicFolderId
+                }
+            }
+            public var query: Operations.search.Input.Query
+            /// - Remark: Generated from `#/paths/search2.view/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.search.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.search.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.search.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.search.Input.Query,
+                headers: Operations.search.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response/value2/searchResult`.
+                                public var searchResult: Components.Schemas.SearchResult
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - searchResult:
+                                public init(searchResult: Components.Schemas.SearchResult) {
+                                    self.searchResult = searchResult
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case searchResult
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.search.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.search.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.search.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.search.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/search2.view/POST/responses/200/content/application\/json`.
+                    case json(Operations.search.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.search.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.search.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.search.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//search2.view/post(search)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.search.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.search.Output.Ok {
                 get throws {
                     switch self {
                     case let .ok(response):
