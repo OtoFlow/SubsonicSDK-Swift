@@ -62,7 +62,7 @@ extension AuthenticationMiddleware: ClientMiddleware {
         var containsQuery = false
         if let path = request.path, let queryStart = path.firstIndex(of: "?") {
             let queryEnd = path.endIndex
-            let query = path[queryStart..<queryEnd]
+            let query = path[path.index(after: queryStart)..<queryEnd]
             let queryItems = query.split(separator: "&").forEach { queryItem in
                 let queryName = queryItem.split(separator: "=", maxSplits: 2).first!
                 fields.removeValue(forKey: String(queryName))
