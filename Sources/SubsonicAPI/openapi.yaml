@@ -85,6 +85,35 @@ paths:
                         properties:
                           genres:
                             $ref: '#/components/schemas/Genres'
+  /getArtists:
+    get:
+      tags:
+        - Browsing
+      operationId: getArtists
+      parameters:
+        - name: musicFolderId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - artists
+                        properties:
+                          artists:
+                            $ref: '#/components/schemas/ArtistsID3'
   /getArtist:
     get:
       tags:
@@ -668,6 +697,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Song'
+    ArtistsID3:
+      required:
+        - ignoredArticles
+      type: object
+      properties:
+        ignoredArticles:
+          type: string
+        index:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndexID3'
+    IndexID3:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        artist:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtistID3'
     Artist:
       required:
         - id

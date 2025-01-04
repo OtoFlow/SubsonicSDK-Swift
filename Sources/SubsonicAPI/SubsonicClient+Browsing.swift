@@ -11,7 +11,13 @@ extension SubsonicClient {
             .ok.body.json.subsonic_hyphen_response.value2.genres.genre
     }
 
-    public func getAritst(id: String) async throws -> Artist {
+    public func getArtists() async throws -> [ArtistID3] {
+        let indexs = try await underlyingClient.getArtists()
+            .ok.body.json.subsonic_hyphen_response.value2.artists.index
+        return (indexs ?? []).flatMap { $0.artist ?? [] }
+    }
+
+    public func getArtist(id: String) async throws -> Artist {
         try await underlyingClient.getArtist(query: .init(id: id))
             .ok.body.json.subsonic_hyphen_response.value2.artist
     }
