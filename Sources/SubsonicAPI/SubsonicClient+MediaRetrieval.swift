@@ -70,12 +70,15 @@ extension SubsonicClient {
     }
 
     public func getCoverArt(id: String, size: Int? = nil) -> URL {
-        configuration.serverURL
+        let queryItems = [
+            "id": id,
+            "size": size.map(String.init),
+        ].compactMap { key, value in
+            value.map { URLQueryItem(name: key, value: $0) }
+        }
+        return configuration.serverURL
             .appending(path: "rest/getCoverArt")
-            .appending(queryItems: [
-                URLQueryItem(name: "id", value: id),
-                URLQueryItem(name: "size", value: size.map(String.init)),
-            ] + universalQueryItems())
+            .appending(queryItems: queryItems + universalQueryItems())
     }
 
     public func getAvatar(username: String) -> URL {
