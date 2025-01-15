@@ -38,6 +38,9 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /getSongsByGenre`.
     /// - Remark: Generated from `#/paths//getSongsByGenre/get(getSongsByGenre)`.
     func getSongsByGenre(_ input: Operations.getSongsByGenre.Input) async throws -> Operations.getSongsByGenre.Output
+    /// - Remark: HTTP `GET /getStarred`.
+    /// - Remark: Generated from `#/paths//getStarred/get(getStarred)`.
+    func getStarred(_ input: Operations.getStarred.Input) async throws -> Operations.getStarred.Output
     /// - Remark: HTTP `GET /search2`.
     /// - Remark: Generated from `#/paths//search2/get(search)`.
     func search(_ input: Operations.search.Input) async throws -> Operations.search.Output
@@ -137,6 +140,17 @@ extension APIProtocol {
         headers: Operations.getSongsByGenre.Input.Headers = .init()
     ) async throws -> Operations.getSongsByGenre.Output {
         try await getSongsByGenre(Operations.getSongsByGenre.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `GET /getStarred`.
+    /// - Remark: Generated from `#/paths//getStarred/get(getStarred)`.
+    public func getStarred(
+        query: Operations.getStarred.Input.Query = .init(),
+        headers: Operations.getStarred.Input.Headers = .init()
+    ) async throws -> Operations.getStarred.Output {
+        try await getStarred(Operations.getStarred.Input(
             query: query,
             headers: headers
         ))
@@ -472,6 +486,35 @@ public enum Components {
                 case starred
                 case year
                 case genre
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/Starred`.
+        public struct Starred: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/Starred/artist`.
+            public var artist: [Components.Schemas.Artist]?
+            /// - Remark: Generated from `#/components/schemas/Starred/album`.
+            public var album: [Components.Schemas.Album]?
+            /// - Remark: Generated from `#/components/schemas/Starred/song`.
+            public var song: [Components.Schemas.Song]?
+            /// Creates a new `Starred`.
+            ///
+            /// - Parameters:
+            ///   - artist:
+            ///   - album:
+            ///   - song:
+            public init(
+                artist: [Components.Schemas.Artist]? = nil,
+                album: [Components.Schemas.Album]? = nil,
+                song: [Components.Schemas.Song]? = nil
+            ) {
+                self.artist = artist
+                self.album = album
+                self.song = song
+            }
+            public enum CodingKeys: String, CodingKey {
+                case artist
+                case album
+                case song
             }
         }
         /// - Remark: Generated from `#/components/schemas/SearchResult`.
@@ -2412,6 +2455,189 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.ok`.
             /// - SeeAlso: `.ok`.
             public var ok: Operations.getSongsByGenre.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `GET /getStarred`.
+    /// - Remark: Generated from `#/paths//getStarred/get(getStarred)`.
+    public enum getStarred {
+        public static let id: Swift.String = "getStarred"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/getStarred/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getStarred/GET/query/musicFolderId`.
+                public var musicFolderId: Swift.Int?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - musicFolderId:
+                public init(musicFolderId: Swift.Int? = nil) {
+                    self.musicFolderId = musicFolderId
+                }
+            }
+            public var query: Operations.getStarred.Input.Query
+            /// - Remark: Generated from `#/paths/getStarred/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getStarred.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getStarred.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.getStarred.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.getStarred.Input.Query = .init(),
+                headers: Operations.getStarred.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content/json/subsonic-response/value2/starred`.
+                                public var starred: Components.Schemas.Starred
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - starred:
+                                public init(starred: Components.Schemas.Starred) {
+                                    self.starred = starred
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case starred
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.getStarred.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.getStarred.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.getStarred.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.getStarred.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/getStarred/GET/responses/200/content/application\/json`.
+                    case json(Operations.getStarred.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.getStarred.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.getStarred.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.getStarred.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//getStarred/get(getStarred)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.getStarred.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.getStarred.Output.Ok {
                 get throws {
                     switch self {
                     case let .ok(response):

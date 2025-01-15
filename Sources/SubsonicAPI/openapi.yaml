@@ -326,6 +326,35 @@ paths:
                         properties:
                           songsByGenre:
                             $ref: '#/components/schemas/Songs'
+  /getStarred:
+    get:
+      tags:
+        - Lists
+      operationId: getStarred
+      parameters:
+        - name: musicFolderId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - starred
+                        properties:
+                          starred:
+                            $ref: '#/components/schemas/Starred'
   /search2:
     get:
       tags:
@@ -659,6 +688,21 @@ components:
           type: integer
         genre:
           type: string
+    Starred:
+      type: object
+      properties:
+        artist:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artist'
+        album:
+          type: array
+          items:
+            $ref: '#/components/schemas/Album'
+        song:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
     SearchResult:
       required:
         - artist

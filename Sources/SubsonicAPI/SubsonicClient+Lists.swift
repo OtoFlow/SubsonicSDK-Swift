@@ -4,6 +4,7 @@ public typealias ListType = Components.Schemas.ListType
 public typealias Album = Components.Schemas.Album
 public typealias AlbumID3 = Components.Schemas.AlbumID3
 public typealias Song = Components.Schemas.Song
+public typealias Starred = Components.Schemas.Starred
 
 extension SubsonicClient {
     public func getAlbumList(
@@ -47,5 +48,11 @@ extension SubsonicClient {
                 musicFolderId: musicFolderId
             )
         ).ok.body.json.subsonic_hyphen_response.value2.songsByGenre.song
+    }
+
+    public func getStarred(musicFolderId: Int? = nil) async throws -> Starred {
+        try await underlyingClient.getStarred(
+            query: .init(musicFolderId: musicFolderId)
+        ).ok.body.json.subsonic_hyphen_response.value2.starred
     }
 }
