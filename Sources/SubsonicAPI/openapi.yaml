@@ -9,6 +9,7 @@ tags:
   - name: Lists
     description: Album/Song Lists
   - name: Searching
+  - name: Playlists
   - name: Media Annotation
 paths:
   /ping.view:
@@ -483,6 +484,35 @@ paths:
                         properties:
                           searchResult3:
                             $ref: '#/components/schemas/SearchResultID3'
+  /getPlaylists:
+    get:
+      tags:
+        - Playlists
+      operationId: getPlaylists
+      parameters:
+        - name: username
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - playlists
+                        properties:
+                          playlists:
+                            $ref: '#/components/schemas/Playlists'
   /star:
     post:
       tags:
@@ -741,6 +771,53 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Song'
+    Playlists:
+      required:
+        - playlist
+      type: object
+      properties:
+        playlist:
+          type: array
+          items:
+            $ref: '#/components/schemas/Playlist'
+    Playlist:
+      required:
+        - id
+        - name
+        - songCount
+        - duration
+        - created
+        - changed
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        comment:
+          type: string
+        owner:
+          type: string
+        public:
+          type: boolean
+        songCount:
+          type: integer
+          format: long
+        duration:
+          type: integer
+          format: long
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        coverArt:
+          type: string
+        allowedUser:
+          type: array
+          items:
+            type: string
     ArtistsID3:
       required:
         - ignoredArticles
