@@ -1080,6 +1080,71 @@ public struct Client: APIProtocol {
             }
         )
     }
+    /// - Remark: HTTP `GET /getPlaylist`.
+    /// - Remark: Generated from `#/paths//getPlaylist/get(getPlaylist)`.
+    public func getPlaylist(_ input: Operations.getPlaylist.Input) async throws -> Operations.getPlaylist.Output {
+        try await client.send(
+            input: input,
+            forOperation: Operations.getPlaylist.id,
+            serializer: { input in
+                let path = try converter.renderedPath(
+                    template: "/getPlaylist",
+                    parameters: []
+                )
+                var request: HTTPTypes.HTTPRequest = .init(
+                    soar_path: path,
+                    method: .get
+                )
+                suppressMutabilityWarning(&request)
+                try converter.setQueryItemAsURI(
+                    in: &request,
+                    style: .form,
+                    explode: true,
+                    name: "id",
+                    value: input.query.id
+                )
+                converter.setAcceptHeader(
+                    in: &request.headerFields,
+                    contentTypes: input.headers.accept
+                )
+                return (request, nil)
+            },
+            deserializer: { response, responseBody in
+                switch response.status.code {
+                case 200:
+                    let contentType = converter.extractContentTypeIfPresent(in: response.headerFields)
+                    let body: Operations.getPlaylist.Output.Ok.Body
+                    let chosenContentType = try converter.bestContentType(
+                        received: contentType,
+                        options: [
+                            "application/json"
+                        ]
+                    )
+                    switch chosenContentType {
+                    case "application/json":
+                        body = try await converter.getResponseBodyAsJSON(
+                            Operations.getPlaylist.Output.Ok.Body.jsonPayload.self,
+                            from: responseBody,
+                            transforming: { value in
+                                .json(value)
+                            }
+                        )
+                    default:
+                        preconditionFailure("bestContentType chose an invalid content type.")
+                    }
+                    return .ok(.init(body: body))
+                default:
+                    return .undocumented(
+                        statusCode: response.status.code,
+                        .init(
+                            headerFields: response.headerFields,
+                            body: responseBody
+                        )
+                    )
+                }
+            }
+        )
+    }
     /// - Remark: HTTP `POST /star`.
     /// - Remark: Generated from `#/paths//star/post(star)`.
     public func star(_ input: Operations.star.Input) async throws -> Operations.star.Output {

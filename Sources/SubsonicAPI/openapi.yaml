@@ -513,6 +513,35 @@ paths:
                         properties:
                           playlists:
                             $ref: '#/components/schemas/Playlists'
+  /getPlaylist:
+    get:
+      tags:
+        - Playlists
+      operationId: getPlaylist
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - playlist
+                        properties:
+                          playlist:
+                            $ref: '#/components/schemas/PlaylistWithSongs'
   /star:
     post:
       tags:
@@ -818,6 +847,17 @@ components:
           type: array
           items:
             type: string
+    PlaylistWithSongs:
+      allOf:
+        - $ref: '#/components/schemas/Playlist'
+        - type: object
+          required:
+            - entry
+          properties:
+            entry:
+              type: array
+              items:
+                $ref: '#/components/schemas/Song'
     ArtistsID3:
       required:
         - ignoredArticles
