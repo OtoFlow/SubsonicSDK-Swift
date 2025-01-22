@@ -61,9 +61,7 @@ public final class SubsonicClient {
             underlyingClient: Client(
                 serverURL: configuration.serverURL,
                 configuration: .init(
-                    dateTranscoder: ISO8601DateTranscoder(
-                        options: [.withTimeZone]
-                    )
+                    dateTranscoder: ISO8601DownsamplingDateTranscoder()
                 ),
                 transport: URLSessionTransport(),
                 middlewares: [

@@ -981,3 +981,34 @@ components:
           type: string
         artistId:
           type: string
+        type:
+          type: string
+          enum:
+            - music
+            - podcast
+            - audiobook
+            - video
+        mediaType:
+          type: string
+          enum:
+            - song
+            - album
+            - artist
+        bookmarkPosition:
+          type: integer
+          format: long
+        originalWidth:
+          type: integer
+        originalHeight:
+          type: integer
+        played:
+          type: string
+          format: date-time
+        bpm:
+          type: integer
+        comment:
+          type: string
+        sortName:
+          type: string
+        musicBrainzId:
+          type: string

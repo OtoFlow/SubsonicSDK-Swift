@@ -930,6 +930,39 @@ public enum Components {
             public var albumId: Swift.String?
             /// - Remark: Generated from `#/components/schemas/Child/artistId`.
             public var artistId: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/type`.
+            @frozen public enum _typePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case music = "music"
+                case podcast = "podcast"
+                case audiobook = "audiobook"
+                case video = "video"
+            }
+            /// - Remark: Generated from `#/components/schemas/Child/type`.
+            public var _type: Components.Schemas.Child._typePayload?
+            /// - Remark: Generated from `#/components/schemas/Child/mediaType`.
+            @frozen public enum mediaTypePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case song = "song"
+                case album = "album"
+                case artist = "artist"
+            }
+            /// - Remark: Generated from `#/components/schemas/Child/mediaType`.
+            public var mediaType: Components.Schemas.Child.mediaTypePayload?
+            /// - Remark: Generated from `#/components/schemas/Child/bookmarkPosition`.
+            public var bookmarkPosition: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/originalWidth`.
+            public var originalWidth: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/originalHeight`.
+            public var originalHeight: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/played`.
+            public var played: Foundation.Date?
+            /// - Remark: Generated from `#/components/schemas/Child/bpm`.
+            public var bpm: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/comment`.
+            public var comment: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/sortName`.
+            public var sortName: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/musicBrainzId`.
+            public var musicBrainzId: Swift.String?
             /// Creates a new `Child`.
             ///
             /// - Parameters:
@@ -950,6 +983,16 @@ public enum Components {
             ///   - starred:
             ///   - albumId:
             ///   - artistId:
+            ///   - _type:
+            ///   - mediaType:
+            ///   - bookmarkPosition:
+            ///   - originalWidth:
+            ///   - originalHeight:
+            ///   - played:
+            ///   - bpm:
+            ///   - comment:
+            ///   - sortName:
+            ///   - musicBrainzId:
             public init(
                 id: Swift.String,
                 parent: Swift.String? = nil,
@@ -967,7 +1010,17 @@ public enum Components {
                 created: Foundation.Date? = nil,
                 starred: Foundation.Date? = nil,
                 albumId: Swift.String? = nil,
-                artistId: Swift.String? = nil
+                artistId: Swift.String? = nil,
+                _type: Components.Schemas.Child._typePayload? = nil,
+                mediaType: Components.Schemas.Child.mediaTypePayload? = nil,
+                bookmarkPosition: Swift.Int? = nil,
+                originalWidth: Swift.Int? = nil,
+                originalHeight: Swift.Int? = nil,
+                played: Foundation.Date? = nil,
+                bpm: Swift.Int? = nil,
+                comment: Swift.String? = nil,
+                sortName: Swift.String? = nil,
+                musicBrainzId: Swift.String? = nil
             ) {
                 self.id = id
                 self.parent = parent
@@ -986,6 +1039,16 @@ public enum Components {
                 self.starred = starred
                 self.albumId = albumId
                 self.artistId = artistId
+                self._type = _type
+                self.mediaType = mediaType
+                self.bookmarkPosition = bookmarkPosition
+                self.originalWidth = originalWidth
+                self.originalHeight = originalHeight
+                self.played = played
+                self.bpm = bpm
+                self.comment = comment
+                self.sortName = sortName
+                self.musicBrainzId = musicBrainzId
             }
             public enum CodingKeys: String, CodingKey {
                 case id
@@ -1005,6 +1068,16 @@ public enum Components {
                 case starred
                 case albumId
                 case artistId
+                case _type = "type"
+                case mediaType
+                case bookmarkPosition
+                case originalWidth
+                case originalHeight
+                case played
+                case bpm
+                case comment
+                case sortName
+                case musicBrainzId
             }
         }
     }
