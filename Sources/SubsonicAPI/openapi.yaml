@@ -606,6 +606,38 @@ paths:
                 properties:
                   subsonic-response:
                     $ref: '#/components/schemas/Response'
+  /scrobble:
+    post:
+      tags:
+        - Media Annotation
+      operationId: scrobble
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: time
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: submission
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    $ref: '#/components/schemas/Response'
 components:
   schemas:
     ResponseError:
@@ -763,10 +795,6 @@ components:
           items:
             $ref: '#/components/schemas/Song'
     SearchResult:
-      required:
-        - artist
-        - album
-        - song
       type: object
       properties:
         artist:
@@ -782,10 +810,6 @@ components:
           items:
             $ref: '#/components/schemas/Song'
     SearchResultID3:
-      required:
-        - artist
-        - album
-        - song
       type: object
       properties:
         artist:

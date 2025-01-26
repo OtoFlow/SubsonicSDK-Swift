@@ -59,6 +59,9 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `POST /unstar`.
     /// - Remark: Generated from `#/paths//unstar/post(unstar)`.
     func unstar(_ input: Operations.unstar.Input) async throws -> Operations.unstar.Output
+    /// - Remark: HTTP `POST /scrobble`.
+    /// - Remark: Generated from `#/paths//scrobble/post(scrobble)`.
+    func scrobble(_ input: Operations.scrobble.Input) async throws -> Operations.scrobble.Output
 }
 
 /// Convenience overloads for operation inputs.
@@ -223,6 +226,17 @@ extension APIProtocol {
         headers: Operations.unstar.Input.Headers = .init()
     ) async throws -> Operations.unstar.Output {
         try await unstar(Operations.unstar.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `POST /scrobble`.
+    /// - Remark: Generated from `#/paths//scrobble/post(scrobble)`.
+    public func scrobble(
+        query: Operations.scrobble.Input.Query,
+        headers: Operations.scrobble.Input.Headers = .init()
+    ) async throws -> Operations.scrobble.Output {
+        try await scrobble(Operations.scrobble.Input(
             query: query,
             headers: headers
         ))
@@ -548,11 +562,11 @@ public enum Components {
         /// - Remark: Generated from `#/components/schemas/SearchResult`.
         public struct SearchResult: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/SearchResult/artist`.
-            public var artist: [Components.Schemas.Artist]
+            public var artist: [Components.Schemas.Artist]?
             /// - Remark: Generated from `#/components/schemas/SearchResult/album`.
-            public var album: [Components.Schemas.Album]
+            public var album: [Components.Schemas.Album]?
             /// - Remark: Generated from `#/components/schemas/SearchResult/song`.
-            public var song: [Components.Schemas.Song]
+            public var song: [Components.Schemas.Song]?
             /// Creates a new `SearchResult`.
             ///
             /// - Parameters:
@@ -560,9 +574,9 @@ public enum Components {
             ///   - album:
             ///   - song:
             public init(
-                artist: [Components.Schemas.Artist],
-                album: [Components.Schemas.Album],
-                song: [Components.Schemas.Song]
+                artist: [Components.Schemas.Artist]? = nil,
+                album: [Components.Schemas.Album]? = nil,
+                song: [Components.Schemas.Song]? = nil
             ) {
                 self.artist = artist
                 self.album = album
@@ -577,11 +591,11 @@ public enum Components {
         /// - Remark: Generated from `#/components/schemas/SearchResultID3`.
         public struct SearchResultID3: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/SearchResultID3/artist`.
-            public var artist: [Components.Schemas.ArtistID3]
+            public var artist: [Components.Schemas.ArtistID3]?
             /// - Remark: Generated from `#/components/schemas/SearchResultID3/album`.
-            public var album: [Components.Schemas.AlbumID3]
+            public var album: [Components.Schemas.AlbumID3]?
             /// - Remark: Generated from `#/components/schemas/SearchResultID3/song`.
-            public var song: [Components.Schemas.Song]
+            public var song: [Components.Schemas.Song]?
             /// Creates a new `SearchResultID3`.
             ///
             /// - Parameters:
@@ -589,9 +603,9 @@ public enum Components {
             ///   - album:
             ///   - song:
             public init(
-                artist: [Components.Schemas.ArtistID3],
-                album: [Components.Schemas.AlbumID3],
-                song: [Components.Schemas.Song]
+                artist: [Components.Schemas.ArtistID3]? = nil,
+                album: [Components.Schemas.AlbumID3]? = nil,
+                song: [Components.Schemas.Song]? = nil
             ) {
                 self.artist = artist
                 self.album = album
@@ -3985,6 +3999,159 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.ok`.
             /// - SeeAlso: `.ok`.
             public var ok: Operations.unstar.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `POST /scrobble`.
+    /// - Remark: Generated from `#/paths//scrobble/post(scrobble)`.
+    public enum scrobble {
+        public static let id: Swift.String = "scrobble"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/scrobble/POST/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/scrobble/POST/query/id`.
+                public var id: Swift.String
+                /// - Remark: Generated from `#/paths/scrobble/POST/query/time`.
+                public var time: Swift.Int?
+                /// - Remark: Generated from `#/paths/scrobble/POST/query/submission`.
+                public var submission: Swift.Bool?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                ///   - time:
+                ///   - submission:
+                public init(
+                    id: Swift.String,
+                    time: Swift.Int? = nil,
+                    submission: Swift.Bool? = nil
+                ) {
+                    self.id = id
+                    self.time = time
+                    self.submission = submission
+                }
+            }
+            public var query: Operations.scrobble.Input.Query
+            /// - Remark: Generated from `#/paths/scrobble/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.scrobble.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.scrobble.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.scrobble.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.scrobble.Input.Query,
+                headers: Operations.scrobble.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/scrobble/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/scrobble/POST/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/scrobble/POST/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Components.Schemas.Response
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Components.Schemas.Response) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/scrobble/POST/responses/200/content/application\/json`.
+                    case json(Operations.scrobble.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.scrobble.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.scrobble.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.scrobble.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//scrobble/post(scrobble)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.scrobble.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.scrobble.Output.Ok {
                 get throws {
                     switch self {
                     case let .ok(response):

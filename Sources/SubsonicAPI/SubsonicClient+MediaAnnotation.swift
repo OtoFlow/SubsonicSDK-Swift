@@ -17,4 +17,14 @@ extension SubsonicClient {
             )
         }
     }
+
+    public func scrobble(
+        id: String,
+        time: Int? = nil,
+        isSubmission: Bool? = nil
+    ) async throws {
+        _ = try await underlyingClient.scrobble(
+            query: .init(id: id, time: time, submission: isSubmission)
+        )
+    }
 }
