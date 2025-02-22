@@ -10,6 +10,7 @@ tags:
     description: Album/Song Lists
   - name: Searching
   - name: Playlists
+  - name: Media Retrieval
   - name: Media Annotation
 paths:
   /ping.view:
@@ -542,6 +543,35 @@ paths:
                         properties:
                           playlist:
                             $ref: '#/components/schemas/PlaylistWithSongs'
+  /getLyricsBySongId:
+    get:
+      tags:
+        - Media Retrieval
+      operationId: getLyricsBySongId
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - lyricsList
+                        properties:
+                          lyricsList:
+                            $ref: '#/components/schemas/LyricsList'
   /star:
     post:
       tags:
@@ -1036,3 +1066,42 @@ components:
           type: string
         musicBrainzId:
           type: string
+    LyricsList:
+      type: object
+      properties:
+        structuredLyrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/StructuredLyrics'
+    StructuredLyrics:
+      required:
+        - lang
+        - synced
+        - line
+      type: object
+      properties:
+        lang:
+          type: string
+        synced:
+          type: boolean
+        line:
+          type: array
+          items:
+            $ref: '#/components/schemas/LyricLine'
+        displayArtist:
+          type: string
+        displayTitle:
+          type: string
+        offset:
+          type: integer
+          format: long
+    LyricLine:
+      required:
+        - value
+      type: object
+      properties:
+        value:
+          type: string
+        start:
+          type: integer
+          format: long

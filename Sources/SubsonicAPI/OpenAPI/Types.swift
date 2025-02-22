@@ -53,6 +53,9 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /getPlaylist`.
     /// - Remark: Generated from `#/paths//getPlaylist/get(getPlaylist)`.
     func getPlaylist(_ input: Operations.getPlaylist.Input) async throws -> Operations.getPlaylist.Output
+    /// - Remark: HTTP `GET /getLyricsBySongId`.
+    /// - Remark: Generated from `#/paths//getLyricsBySongId/get(getLyricsBySongId)`.
+    func getLyricsBySongId(_ input: Operations.getLyricsBySongId.Input) async throws -> Operations.getLyricsBySongId.Output
     /// - Remark: HTTP `POST /star`.
     /// - Remark: Generated from `#/paths//star/post(star)`.
     func star(_ input: Operations.star.Input) async throws -> Operations.star.Output
@@ -204,6 +207,17 @@ extension APIProtocol {
         headers: Operations.getPlaylist.Input.Headers = .init()
     ) async throws -> Operations.getPlaylist.Output {
         try await getPlaylist(Operations.getPlaylist.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `GET /getLyricsBySongId`.
+    /// - Remark: Generated from `#/paths//getLyricsBySongId/get(getLyricsBySongId)`.
+    public func getLyricsBySongId(
+        query: Operations.getLyricsBySongId.Input.Query,
+        headers: Operations.getLyricsBySongId.Input.Headers = .init()
+    ) async throws -> Operations.getLyricsBySongId.Output {
+        try await getLyricsBySongId(Operations.getLyricsBySongId.Input(
             query: query,
             headers: headers
         ))
@@ -1092,6 +1106,91 @@ public enum Components {
                 case comment
                 case sortName
                 case musicBrainzId
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/LyricsList`.
+        public struct LyricsList: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/LyricsList/structuredLyrics`.
+            public var structuredLyrics: [Components.Schemas.StructuredLyrics]?
+            /// Creates a new `LyricsList`.
+            ///
+            /// - Parameters:
+            ///   - structuredLyrics:
+            public init(structuredLyrics: [Components.Schemas.StructuredLyrics]? = nil) {
+                self.structuredLyrics = structuredLyrics
+            }
+            public enum CodingKeys: String, CodingKey {
+                case structuredLyrics
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/StructuredLyrics`.
+        public struct StructuredLyrics: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/StructuredLyrics/lang`.
+            public var lang: Swift.String
+            /// - Remark: Generated from `#/components/schemas/StructuredLyrics/synced`.
+            public var synced: Swift.Bool
+            /// - Remark: Generated from `#/components/schemas/StructuredLyrics/line`.
+            public var line: [Components.Schemas.LyricLine]
+            /// - Remark: Generated from `#/components/schemas/StructuredLyrics/displayArtist`.
+            public var displayArtist: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/StructuredLyrics/displayTitle`.
+            public var displayTitle: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/StructuredLyrics/offset`.
+            public var offset: Swift.Int?
+            /// Creates a new `StructuredLyrics`.
+            ///
+            /// - Parameters:
+            ///   - lang:
+            ///   - synced:
+            ///   - line:
+            ///   - displayArtist:
+            ///   - displayTitle:
+            ///   - offset:
+            public init(
+                lang: Swift.String,
+                synced: Swift.Bool,
+                line: [Components.Schemas.LyricLine],
+                displayArtist: Swift.String? = nil,
+                displayTitle: Swift.String? = nil,
+                offset: Swift.Int? = nil
+            ) {
+                self.lang = lang
+                self.synced = synced
+                self.line = line
+                self.displayArtist = displayArtist
+                self.displayTitle = displayTitle
+                self.offset = offset
+            }
+            public enum CodingKeys: String, CodingKey {
+                case lang
+                case synced
+                case line
+                case displayArtist
+                case displayTitle
+                case offset
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/LyricLine`.
+        public struct LyricLine: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/LyricLine/value`.
+            public var value: Swift.String
+            /// - Remark: Generated from `#/components/schemas/LyricLine/start`.
+            public var start: Swift.Int?
+            /// Creates a new `LyricLine`.
+            ///
+            /// - Parameters:
+            ///   - value:
+            ///   - start:
+            public init(
+                value: Swift.String,
+                start: Swift.Int? = nil
+            ) {
+                self.value = value
+                self.start = start
+            }
+            public enum CodingKeys: String, CodingKey {
+                case value
+                case start
             }
         }
     }
@@ -3693,6 +3792,189 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.ok`.
             /// - SeeAlso: `.ok`.
             public var ok: Operations.getPlaylist.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `GET /getLyricsBySongId`.
+    /// - Remark: Generated from `#/paths//getLyricsBySongId/get(getLyricsBySongId)`.
+    public enum getLyricsBySongId {
+        public static let id: Swift.String = "getLyricsBySongId"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/query/id`.
+                public var id: Swift.String
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                public init(id: Swift.String) {
+                    self.id = id
+                }
+            }
+            public var query: Operations.getLyricsBySongId.Input.Query
+            /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getLyricsBySongId.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getLyricsBySongId.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.getLyricsBySongId.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.getLyricsBySongId.Input.Query,
+                headers: Operations.getLyricsBySongId.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content/json/subsonic-response/value2/lyricsList`.
+                                public var lyricsList: Components.Schemas.LyricsList
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - lyricsList:
+                                public init(lyricsList: Components.Schemas.LyricsList) {
+                                    self.lyricsList = lyricsList
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case lyricsList
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.getLyricsBySongId.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.getLyricsBySongId.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.getLyricsBySongId.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.getLyricsBySongId.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/getLyricsBySongId/GET/responses/200/content/application\/json`.
+                    case json(Operations.getLyricsBySongId.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.getLyricsBySongId.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.getLyricsBySongId.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.getLyricsBySongId.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//getLyricsBySongId/get(getLyricsBySongId)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.getLyricsBySongId.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.getLyricsBySongId.Output.Ok {
                 get throws {
                     switch self {
                     case let .ok(response):

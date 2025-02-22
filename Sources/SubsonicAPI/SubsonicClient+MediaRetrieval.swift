@@ -1,5 +1,7 @@
 import Foundation
 
+public typealias StructuredLyrics = Components.Schemas.StructuredLyrics
+
 extension SubsonicClient {
     public func stream(
         id: String,
@@ -87,6 +89,11 @@ extension SubsonicClient {
             .appending(queryItems: [
                 URLQueryItem(name: "username", value: username),
             ] + universalQueryItems())
+    }
+
+    public func getLyrics(id: String) async throws -> [StructuredLyrics] {
+        try await underlyingClient.getLyricsBySongId(query: .init(id: id))
+            .ok.body.json.subsonic_hyphen_response.value2.lyricsList.structuredLyrics ?? []
     }
 
     private func universalQueryItems() -> [URLQueryItem] {
