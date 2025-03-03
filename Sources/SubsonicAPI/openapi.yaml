@@ -1016,10 +1016,38 @@ components:
           type: integer
         genre:
           type: string
+        coverArt:
+          type: string
+        size:
+          type: integer
+          format: long
+        contentType:
+          type: string
+        suffix:
+          type: string
+        transcodedContentType:
+          type: string
+        transcodedSuffix:
+          type: string
         duration:
           type: integer
+        bitRate:
+          type: integer
+        bitDepth:
+          type: integer
+        sampleRate:
+          type: integer
+        channelCount:
+          type: integer
+        path:
+          type: string
         isVideo:
           type: boolean
+        userRating:
+          type: integer
+        averageRating:
+          type: number
+          format: double
         playCount:
           type: integer
           format: long

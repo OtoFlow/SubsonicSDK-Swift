@@ -942,10 +942,36 @@ public enum Components {
             public var year: Swift.Int?
             /// - Remark: Generated from `#/components/schemas/Child/genre`.
             public var genre: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/coverArt`.
+            public var coverArt: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/size`.
+            public var size: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/contentType`.
+            public var contentType: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/suffix`.
+            public var suffix: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/transcodedContentType`.
+            public var transcodedContentType: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/transcodedSuffix`.
+            public var transcodedSuffix: Swift.String?
             /// - Remark: Generated from `#/components/schemas/Child/duration`.
             public var duration: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/bitRate`.
+            public var bitRate: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/bitDepth`.
+            public var bitDepth: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/sampleRate`.
+            public var sampleRate: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/channelCount`.
+            public var channelCount: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/path`.
+            public var path: Swift.String?
             /// - Remark: Generated from `#/components/schemas/Child/isVideo`.
             public var isVideo: Swift.Bool?
+            /// - Remark: Generated from `#/components/schemas/Child/userRating`.
+            public var userRating: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/Child/averageRating`.
+            public var averageRating: Swift.Double?
             /// - Remark: Generated from `#/components/schemas/Child/playCount`.
             public var playCount: Swift.Int?
             /// - Remark: Generated from `#/components/schemas/Child/discNumber`.
@@ -1003,8 +1029,21 @@ public enum Components {
             ///   - track:
             ///   - year:
             ///   - genre:
+            ///   - coverArt:
+            ///   - size:
+            ///   - contentType:
+            ///   - suffix:
+            ///   - transcodedContentType:
+            ///   - transcodedSuffix:
             ///   - duration:
+            ///   - bitRate:
+            ///   - bitDepth:
+            ///   - sampleRate:
+            ///   - channelCount:
+            ///   - path:
             ///   - isVideo:
+            ///   - userRating:
+            ///   - averageRating:
             ///   - playCount:
             ///   - discNumber:
             ///   - created:
@@ -1031,8 +1070,21 @@ public enum Components {
                 track: Swift.Int? = nil,
                 year: Swift.Int? = nil,
                 genre: Swift.String? = nil,
+                coverArt: Swift.String? = nil,
+                size: Swift.Int? = nil,
+                contentType: Swift.String? = nil,
+                suffix: Swift.String? = nil,
+                transcodedContentType: Swift.String? = nil,
+                transcodedSuffix: Swift.String? = nil,
                 duration: Swift.Int? = nil,
+                bitRate: Swift.Int? = nil,
+                bitDepth: Swift.Int? = nil,
+                sampleRate: Swift.Int? = nil,
+                channelCount: Swift.Int? = nil,
+                path: Swift.String? = nil,
                 isVideo: Swift.Bool? = nil,
+                userRating: Swift.Int? = nil,
+                averageRating: Swift.Double? = nil,
                 playCount: Swift.Int? = nil,
                 discNumber: Swift.Int? = nil,
                 created: Foundation.Date? = nil,
@@ -1059,8 +1111,21 @@ public enum Components {
                 self.track = track
                 self.year = year
                 self.genre = genre
+                self.coverArt = coverArt
+                self.size = size
+                self.contentType = contentType
+                self.suffix = suffix
+                self.transcodedContentType = transcodedContentType
+                self.transcodedSuffix = transcodedSuffix
                 self.duration = duration
+                self.bitRate = bitRate
+                self.bitDepth = bitDepth
+                self.sampleRate = sampleRate
+                self.channelCount = channelCount
+                self.path = path
                 self.isVideo = isVideo
+                self.userRating = userRating
+                self.averageRating = averageRating
                 self.playCount = playCount
                 self.discNumber = discNumber
                 self.created = created
@@ -1088,8 +1153,21 @@ public enum Components {
                 case track
                 case year
                 case genre
+                case coverArt
+                case size
+                case contentType
+                case suffix
+                case transcodedContentType
+                case transcodedSuffix
                 case duration
+                case bitRate
+                case bitDepth
+                case sampleRate
+                case channelCount
+                case path
                 case isVideo
+                case userRating
+                case averageRating
                 case playCount
                 case discNumber
                 case created
