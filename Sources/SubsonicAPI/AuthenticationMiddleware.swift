@@ -72,7 +72,9 @@ extension AuthenticationMiddleware: ClientMiddleware {
 
         let fieldString = fields
             .compactMap { key, value in
-                value.map { "\(key)=\($0)" }
+                value?
+                    .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                    .map { "\(key)=\($0)" }
             }
             .joined(separator: "&")
 
