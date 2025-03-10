@@ -487,6 +487,18 @@ public enum Components {
             public var year: Swift.Int?
             /// - Remark: Generated from `#/components/schemas/AlbumID3/genre`.
             public var genre: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/AlbumID3/played`.
+            public var played: Foundation.Date?
+            /// - Remark: Generated from `#/components/schemas/AlbumID3/userRating`.
+            public var userRating: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/AlbumID3/musicBrainzId`.
+            public var musicBrainzId: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/AlbumID3/genres`.
+            public var genres: [Components.Schemas.ItemGenre]?
+            /// - Remark: Generated from `#/components/schemas/AlbumID3/artists`.
+            public var artists: [Components.Schemas.ArtistID3]?
+            /// - Remark: Generated from `#/components/schemas/AlbumID3/displayArtist`.
+            public var displayArtist: Swift.String?
             /// Creates a new `AlbumID3`.
             ///
             /// - Parameters:
@@ -502,6 +514,12 @@ public enum Components {
             ///   - starred:
             ///   - year:
             ///   - genre:
+            ///   - played:
+            ///   - userRating:
+            ///   - musicBrainzId:
+            ///   - genres:
+            ///   - artists:
+            ///   - displayArtist:
             public init(
                 id: Swift.String,
                 name: Swift.String,
@@ -514,7 +532,13 @@ public enum Components {
                 created: Foundation.Date,
                 starred: Foundation.Date? = nil,
                 year: Swift.Int? = nil,
-                genre: Swift.String? = nil
+                genre: Swift.String? = nil,
+                played: Foundation.Date? = nil,
+                userRating: Swift.Int? = nil,
+                musicBrainzId: Swift.String? = nil,
+                genres: [Components.Schemas.ItemGenre]? = nil,
+                artists: [Components.Schemas.ArtistID3]? = nil,
+                displayArtist: Swift.String? = nil
             ) {
                 self.id = id
                 self.name = name
@@ -528,6 +552,12 @@ public enum Components {
                 self.starred = starred
                 self.year = year
                 self.genre = genre
+                self.played = played
+                self.userRating = userRating
+                self.musicBrainzId = musicBrainzId
+                self.genres = genres
+                self.artists = artists
+                self.displayArtist = displayArtist
             }
             public enum CodingKeys: String, CodingKey {
                 case id
@@ -542,6 +572,12 @@ public enum Components {
                 case starred
                 case year
                 case genre
+                case played
+                case userRating
+                case musicBrainzId
+                case genres
+                case artists
+                case displayArtist
             }
         }
         /// - Remark: Generated from `#/components/schemas/Starred`.
@@ -1017,6 +1053,16 @@ public enum Components {
             public var sortName: Swift.String?
             /// - Remark: Generated from `#/components/schemas/Child/musicBrainzId`.
             public var musicBrainzId: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/genres`.
+            public var genres: [Components.Schemas.ItemGenre]?
+            /// - Remark: Generated from `#/components/schemas/Child/artists`.
+            public var artists: [Components.Schemas.ArtistID3]?
+            /// - Remark: Generated from `#/components/schemas/Child/displayArtist`.
+            public var displayArtist: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/Child/albumArtists`.
+            public var albumArtists: [Components.Schemas.ArtistID3]?
+            /// - Remark: Generated from `#/components/schemas/Child/displayAlbumArtist`.
+            public var displayAlbumArtist: Swift.String?
             /// Creates a new `Child`.
             ///
             /// - Parameters:
@@ -1060,6 +1106,11 @@ public enum Components {
             ///   - comment:
             ///   - sortName:
             ///   - musicBrainzId:
+            ///   - genres:
+            ///   - artists:
+            ///   - displayArtist:
+            ///   - albumArtists:
+            ///   - displayAlbumArtist:
             public init(
                 id: Swift.String,
                 parent: Swift.String? = nil,
@@ -1100,7 +1151,12 @@ public enum Components {
                 bpm: Swift.Int? = nil,
                 comment: Swift.String? = nil,
                 sortName: Swift.String? = nil,
-                musicBrainzId: Swift.String? = nil
+                musicBrainzId: Swift.String? = nil,
+                genres: [Components.Schemas.ItemGenre]? = nil,
+                artists: [Components.Schemas.ArtistID3]? = nil,
+                displayArtist: Swift.String? = nil,
+                albumArtists: [Components.Schemas.ArtistID3]? = nil,
+                displayAlbumArtist: Swift.String? = nil
             ) {
                 self.id = id
                 self.parent = parent
@@ -1142,6 +1198,11 @@ public enum Components {
                 self.comment = comment
                 self.sortName = sortName
                 self.musicBrainzId = musicBrainzId
+                self.genres = genres
+                self.artists = artists
+                self.displayArtist = displayArtist
+                self.albumArtists = albumArtists
+                self.displayAlbumArtist = displayAlbumArtist
             }
             public enum CodingKeys: String, CodingKey {
                 case id
@@ -1184,6 +1245,26 @@ public enum Components {
                 case comment
                 case sortName
                 case musicBrainzId
+                case genres
+                case artists
+                case displayArtist
+                case albumArtists
+                case displayAlbumArtist
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/ItemGenre`.
+        public struct ItemGenre: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/ItemGenre/name`.
+            public var name: Swift.String
+            /// Creates a new `ItemGenre`.
+            ///
+            /// - Parameters:
+            ///   - name:
+            public init(name: Swift.String) {
+                self.name = name
+            }
+            public enum CodingKeys: String, CodingKey {
+                case name
             }
         }
         /// - Remark: Generated from `#/components/schemas/LyricsList`.
