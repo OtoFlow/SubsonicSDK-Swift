@@ -29,9 +29,21 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /getAlbum`.
     /// - Remark: Generated from `#/paths//getAlbum/get(getAlbum)`.
     func getAlbum(_ input: Operations.getAlbum.Input) async throws -> Operations.getAlbum.Output
+    /// - Remark: HTTP `GET /getSimilarSongs`.
+    /// - Remark: Generated from `#/paths//getSimilarSongs/get(getSimilarSongs)`.
+    func getSimilarSongs(_ input: Operations.getSimilarSongs.Input) async throws -> Operations.getSimilarSongs.Output
+    /// - Remark: HTTP `GET /getSimilarSongs2`.
+    /// - Remark: Generated from `#/paths//getSimilarSongs2/get(getSimilarSongs2)`.
+    func getSimilarSongs2(_ input: Operations.getSimilarSongs2.Input) async throws -> Operations.getSimilarSongs2.Output
+    /// - Remark: HTTP `GET /getTopSongs`.
+    /// - Remark: Generated from `#/paths//getTopSongs/get(getTopSongs)`.
+    func getTopSongs(_ input: Operations.getTopSongs.Input) async throws -> Operations.getTopSongs.Output
     /// - Remark: HTTP `GET /getAlbumList`.
     /// - Remark: Generated from `#/paths//getAlbumList/get(getAlbumList)`.
     func getAlbumList(_ input: Operations.getAlbumList.Input) async throws -> Operations.getAlbumList.Output
+    /// - Remark: HTTP `GET /getAlbumList2`.
+    /// - Remark: Generated from `#/paths//getAlbumList2/get(getAlbumList2)`.
+    func getAlbumList2(_ input: Operations.getAlbumList2.Input) async throws -> Operations.getAlbumList2.Output
     /// - Remark: HTTP `GET /getRandomSongs`.
     /// - Remark: Generated from `#/paths//getRandomSongs/get(getRandomSongs)`.
     func getRandomSongs(_ input: Operations.getRandomSongs.Input) async throws -> Operations.getRandomSongs.Output
@@ -53,6 +65,15 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /getPlaylist`.
     /// - Remark: Generated from `#/paths//getPlaylist/get(getPlaylist)`.
     func getPlaylist(_ input: Operations.getPlaylist.Input) async throws -> Operations.getPlaylist.Output
+    /// - Remark: HTTP `POST /createPlaylist`.
+    /// - Remark: Generated from `#/paths//createPlaylist/post(createPlaylist)`.
+    func createPlaylist(_ input: Operations.createPlaylist.Input) async throws -> Operations.createPlaylist.Output
+    /// - Remark: HTTP `POST /updatePlaylist`.
+    /// - Remark: Generated from `#/paths//updatePlaylist/post(updatePlaylist)`.
+    func updatePlaylist(_ input: Operations.updatePlaylist.Input) async throws -> Operations.updatePlaylist.Output
+    /// - Remark: HTTP `POST /deletePlaylist`.
+    /// - Remark: Generated from `#/paths//deletePlaylist/post(deletePlaylist)`.
+    func deletePlaylist(_ input: Operations.deletePlaylist.Input) async throws -> Operations.deletePlaylist.Output
     /// - Remark: HTTP `GET /getLyricsBySongId`.
     /// - Remark: Generated from `#/paths//getLyricsBySongId/get(getLyricsBySongId)`.
     func getLyricsBySongId(_ input: Operations.getLyricsBySongId.Input) async throws -> Operations.getLyricsBySongId.Output
@@ -123,6 +144,39 @@ extension APIProtocol {
             headers: headers
         ))
     }
+    /// - Remark: HTTP `GET /getSimilarSongs`.
+    /// - Remark: Generated from `#/paths//getSimilarSongs/get(getSimilarSongs)`.
+    public func getSimilarSongs(
+        query: Operations.getSimilarSongs.Input.Query,
+        headers: Operations.getSimilarSongs.Input.Headers = .init()
+    ) async throws -> Operations.getSimilarSongs.Output {
+        try await getSimilarSongs(Operations.getSimilarSongs.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `GET /getSimilarSongs2`.
+    /// - Remark: Generated from `#/paths//getSimilarSongs2/get(getSimilarSongs2)`.
+    public func getSimilarSongs2(
+        query: Operations.getSimilarSongs2.Input.Query,
+        headers: Operations.getSimilarSongs2.Input.Headers = .init()
+    ) async throws -> Operations.getSimilarSongs2.Output {
+        try await getSimilarSongs2(Operations.getSimilarSongs2.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `GET /getTopSongs`.
+    /// - Remark: Generated from `#/paths//getTopSongs/get(getTopSongs)`.
+    public func getTopSongs(
+        query: Operations.getTopSongs.Input.Query,
+        headers: Operations.getTopSongs.Input.Headers = .init()
+    ) async throws -> Operations.getTopSongs.Output {
+        try await getTopSongs(Operations.getTopSongs.Input(
+            query: query,
+            headers: headers
+        ))
+    }
     /// - Remark: HTTP `GET /getAlbumList`.
     /// - Remark: Generated from `#/paths//getAlbumList/get(getAlbumList)`.
     public func getAlbumList(
@@ -130,6 +184,17 @@ extension APIProtocol {
         headers: Operations.getAlbumList.Input.Headers = .init()
     ) async throws -> Operations.getAlbumList.Output {
         try await getAlbumList(Operations.getAlbumList.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `GET /getAlbumList2`.
+    /// - Remark: Generated from `#/paths//getAlbumList2/get(getAlbumList2)`.
+    public func getAlbumList2(
+        query: Operations.getAlbumList2.Input.Query,
+        headers: Operations.getAlbumList2.Input.Headers = .init()
+    ) async throws -> Operations.getAlbumList2.Output {
+        try await getAlbumList2(Operations.getAlbumList2.Input(
             query: query,
             headers: headers
         ))
@@ -207,6 +272,39 @@ extension APIProtocol {
         headers: Operations.getPlaylist.Input.Headers = .init()
     ) async throws -> Operations.getPlaylist.Output {
         try await getPlaylist(Operations.getPlaylist.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `POST /createPlaylist`.
+    /// - Remark: Generated from `#/paths//createPlaylist/post(createPlaylist)`.
+    public func createPlaylist(
+        query: Operations.createPlaylist.Input.Query = .init(),
+        headers: Operations.createPlaylist.Input.Headers = .init()
+    ) async throws -> Operations.createPlaylist.Output {
+        try await createPlaylist(Operations.createPlaylist.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `POST /updatePlaylist`.
+    /// - Remark: Generated from `#/paths//updatePlaylist/post(updatePlaylist)`.
+    public func updatePlaylist(
+        query: Operations.updatePlaylist.Input.Query,
+        headers: Operations.updatePlaylist.Input.Headers = .init()
+    ) async throws -> Operations.updatePlaylist.Output {
+        try await updatePlaylist(Operations.updatePlaylist.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// - Remark: HTTP `POST /deletePlaylist`.
+    /// - Remark: Generated from `#/paths//deletePlaylist/post(deletePlaylist)`.
+    public func deletePlaylist(
+        query: Operations.deletePlaylist.Input.Query,
+        headers: Operations.deletePlaylist.Input.Headers = .init()
+    ) async throws -> Operations.deletePlaylist.Output {
+        try await deletePlaylist(Operations.deletePlaylist.Input(
             query: query,
             headers: headers
         ))
@@ -417,6 +515,21 @@ public enum Components {
                 case album
             }
         }
+        /// - Remark: Generated from `#/components/schemas/AlbumList2`.
+        public struct AlbumList2: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/AlbumList2/album`.
+            public var album: [Components.Schemas.AlbumID3]
+            /// Creates a new `AlbumList2`.
+            ///
+            /// - Parameters:
+            ///   - album:
+            public init(album: [Components.Schemas.AlbumID3]) {
+                self.album = album
+            }
+            public enum CodingKeys: String, CodingKey {
+                case album
+            }
+        }
         /// - Remark: Generated from `#/components/schemas/Album`.
         public typealias Album = Components.Schemas.Child
         /// - Remark: Generated from `#/components/schemas/AlbumWithSongsID3`.
@@ -491,6 +604,8 @@ public enum Components {
             public var played: Foundation.Date?
             /// - Remark: Generated from `#/components/schemas/AlbumID3/userRating`.
             public var userRating: Swift.Int?
+            /// - Remark: Generated from `#/components/schemas/AlbumID3/recordLabels`.
+            public var recordLabels: [Components.Schemas.RecordLabel]?
             /// - Remark: Generated from `#/components/schemas/AlbumID3/musicBrainzId`.
             public var musicBrainzId: Swift.String?
             /// - Remark: Generated from `#/components/schemas/AlbumID3/genres`.
@@ -516,6 +631,7 @@ public enum Components {
             ///   - genre:
             ///   - played:
             ///   - userRating:
+            ///   - recordLabels:
             ///   - musicBrainzId:
             ///   - genres:
             ///   - artists:
@@ -535,6 +651,7 @@ public enum Components {
                 genre: Swift.String? = nil,
                 played: Foundation.Date? = nil,
                 userRating: Swift.Int? = nil,
+                recordLabels: [Components.Schemas.RecordLabel]? = nil,
                 musicBrainzId: Swift.String? = nil,
                 genres: [Components.Schemas.ItemGenre]? = nil,
                 artists: [Components.Schemas.ArtistID3]? = nil,
@@ -554,6 +671,7 @@ public enum Components {
                 self.genre = genre
                 self.played = played
                 self.userRating = userRating
+                self.recordLabels = recordLabels
                 self.musicBrainzId = musicBrainzId
                 self.genres = genres
                 self.artists = artists
@@ -574,6 +692,7 @@ public enum Components {
                 case genre
                 case played
                 case userRating
+                case recordLabels
                 case musicBrainzId
                 case genres
                 case artists
@@ -766,12 +885,12 @@ public enum Components {
             /// - Remark: Generated from `#/components/schemas/PlaylistWithSongs/value2`.
             public struct Value2Payload: Codable, Hashable, Sendable {
                 /// - Remark: Generated from `#/components/schemas/PlaylistWithSongs/value2/entry`.
-                public var entry: [Components.Schemas.Song]
+                public var entry: [Components.Schemas.Song]?
                 /// Creates a new `Value2Payload`.
                 ///
                 /// - Parameters:
                 ///   - entry:
-                public init(entry: [Components.Schemas.Song]) {
+                public init(entry: [Components.Schemas.Song]? = nil) {
                     self.entry = entry
                 }
                 public enum CodingKeys: String, CodingKey {
@@ -944,12 +1063,12 @@ public enum Components {
         /// - Remark: Generated from `#/components/schemas/Songs`.
         public struct Songs: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/Songs/song`.
-            public var song: [Components.Schemas.Song]
+            public var song: [Components.Schemas.Song]?
             /// Creates a new `Songs`.
             ///
             /// - Parameters:
             ///   - song:
-            public init(song: [Components.Schemas.Song]) {
+            public init(song: [Components.Schemas.Song]? = nil) {
                 self.song = song
             }
             public enum CodingKeys: String, CodingKey {
@@ -1257,6 +1376,21 @@ public enum Components {
             /// - Remark: Generated from `#/components/schemas/ItemGenre/name`.
             public var name: Swift.String
             /// Creates a new `ItemGenre`.
+            ///
+            /// - Parameters:
+            ///   - name:
+            public init(name: Swift.String) {
+                self.name = name
+            }
+            public enum CodingKeys: String, CodingKey {
+                case name
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/RecordLabel`.
+        public struct RecordLabel: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/RecordLabel/name`.
+            public var name: Swift.String
+            /// Creates a new `RecordLabel`.
             ///
             /// - Parameters:
             ///   - name:
@@ -2385,6 +2519,576 @@ public enum Operations {
             }
         }
     }
+    /// - Remark: HTTP `GET /getSimilarSongs`.
+    /// - Remark: Generated from `#/paths//getSimilarSongs/get(getSimilarSongs)`.
+    public enum getSimilarSongs {
+        public static let id: Swift.String = "getSimilarSongs"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/getSimilarSongs/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getSimilarSongs/GET/query/id`.
+                public var id: Swift.String
+                /// - Remark: Generated from `#/paths/getSimilarSongs/GET/query/count`.
+                public var count: Swift.Int?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                ///   - count:
+                public init(
+                    id: Swift.String,
+                    count: Swift.Int? = nil
+                ) {
+                    self.id = id
+                    self.count = count
+                }
+            }
+            public var query: Operations.getSimilarSongs.Input.Query
+            /// - Remark: Generated from `#/paths/getSimilarSongs/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getSimilarSongs.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getSimilarSongs.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.getSimilarSongs.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.getSimilarSongs.Input.Query,
+                headers: Operations.getSimilarSongs.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content/json/subsonic-response/value2/similarSongs`.
+                                public var similarSongs: Components.Schemas.Songs
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - similarSongs:
+                                public init(similarSongs: Components.Schemas.Songs) {
+                                    self.similarSongs = similarSongs
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case similarSongs
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.getSimilarSongs.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.getSimilarSongs.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.getSimilarSongs.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.getSimilarSongs.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/getSimilarSongs/GET/responses/200/content/application\/json`.
+                    case json(Operations.getSimilarSongs.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.getSimilarSongs.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.getSimilarSongs.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.getSimilarSongs.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//getSimilarSongs/get(getSimilarSongs)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.getSimilarSongs.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.getSimilarSongs.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `GET /getSimilarSongs2`.
+    /// - Remark: Generated from `#/paths//getSimilarSongs2/get(getSimilarSongs2)`.
+    public enum getSimilarSongs2 {
+        public static let id: Swift.String = "getSimilarSongs2"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/query/id`.
+                public var id: Swift.String
+                /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/query/count`.
+                public var count: Swift.Int?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                ///   - count:
+                public init(
+                    id: Swift.String,
+                    count: Swift.Int? = nil
+                ) {
+                    self.id = id
+                    self.count = count
+                }
+            }
+            public var query: Operations.getSimilarSongs2.Input.Query
+            /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getSimilarSongs2.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getSimilarSongs2.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.getSimilarSongs2.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.getSimilarSongs2.Input.Query,
+                headers: Operations.getSimilarSongs2.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content/json/subsonic-response/value2/similarSongs2`.
+                                public var similarSongs2: Components.Schemas.Songs
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - similarSongs2:
+                                public init(similarSongs2: Components.Schemas.Songs) {
+                                    self.similarSongs2 = similarSongs2
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case similarSongs2
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.getSimilarSongs2.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.getSimilarSongs2.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.getSimilarSongs2.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.getSimilarSongs2.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/getSimilarSongs2/GET/responses/200/content/application\/json`.
+                    case json(Operations.getSimilarSongs2.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.getSimilarSongs2.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.getSimilarSongs2.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.getSimilarSongs2.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//getSimilarSongs2/get(getSimilarSongs2)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.getSimilarSongs2.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.getSimilarSongs2.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `GET /getTopSongs`.
+    /// - Remark: Generated from `#/paths//getTopSongs/get(getTopSongs)`.
+    public enum getTopSongs {
+        public static let id: Swift.String = "getTopSongs"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/getTopSongs/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getTopSongs/GET/query/artist`.
+                public var artist: Swift.String
+                /// - Remark: Generated from `#/paths/getTopSongs/GET/query/count`.
+                public var count: Swift.Int?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - artist:
+                ///   - count:
+                public init(
+                    artist: Swift.String,
+                    count: Swift.Int? = nil
+                ) {
+                    self.artist = artist
+                    self.count = count
+                }
+            }
+            public var query: Operations.getTopSongs.Input.Query
+            /// - Remark: Generated from `#/paths/getTopSongs/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getTopSongs.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getTopSongs.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.getTopSongs.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.getTopSongs.Input.Query,
+                headers: Operations.getTopSongs.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content/json/subsonic-response/value2/topSongs`.
+                                public var topSongs: Components.Schemas.Songs
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - topSongs:
+                                public init(topSongs: Components.Schemas.Songs) {
+                                    self.topSongs = topSongs
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case topSongs
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.getTopSongs.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.getTopSongs.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.getTopSongs.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.getTopSongs.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/getTopSongs/GET/responses/200/content/application\/json`.
+                    case json(Operations.getTopSongs.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.getTopSongs.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.getTopSongs.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.getTopSongs.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//getTopSongs/get(getTopSongs)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.getTopSongs.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.getTopSongs.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
     /// - Remark: HTTP `GET /getAlbumList`.
     /// - Remark: Generated from `#/paths//getAlbumList/get(getAlbumList)`.
     public enum getAlbumList {
@@ -2557,6 +3261,221 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.ok`.
             /// - SeeAlso: `.ok`.
             public var ok: Operations.getAlbumList.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `GET /getAlbumList2`.
+    /// - Remark: Generated from `#/paths//getAlbumList2/get(getAlbumList2)`.
+    public enum getAlbumList2 {
+        public static let id: Swift.String = "getAlbumList2"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/getAlbumList2/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getAlbumList2/GET/query/type`.
+                public var _type: Components.Schemas.ListType
+                /// - Remark: Generated from `#/paths/getAlbumList2/GET/query/size`.
+                public var size: Swift.Int?
+                /// - Remark: Generated from `#/paths/getAlbumList2/GET/query/offset`.
+                public var offset: Swift.Int?
+                /// - Remark: Generated from `#/paths/getAlbumList2/GET/query/fromYear`.
+                public var fromYear: Swift.Int?
+                /// - Remark: Generated from `#/paths/getAlbumList2/GET/query/toYear`.
+                public var toYear: Swift.Int?
+                /// - Remark: Generated from `#/paths/getAlbumList2/GET/query/genre`.
+                public var genre: Swift.String?
+                /// - Remark: Generated from `#/paths/getAlbumList2/GET/query/musicFolderId`.
+                public var musicFolderId: Swift.Int?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - _type:
+                ///   - size:
+                ///   - offset:
+                ///   - fromYear:
+                ///   - toYear:
+                ///   - genre:
+                ///   - musicFolderId:
+                public init(
+                    _type: Components.Schemas.ListType,
+                    size: Swift.Int? = nil,
+                    offset: Swift.Int? = nil,
+                    fromYear: Swift.Int? = nil,
+                    toYear: Swift.Int? = nil,
+                    genre: Swift.String? = nil,
+                    musicFolderId: Swift.Int? = nil
+                ) {
+                    self._type = _type
+                    self.size = size
+                    self.offset = offset
+                    self.fromYear = fromYear
+                    self.toYear = toYear
+                    self.genre = genre
+                    self.musicFolderId = musicFolderId
+                }
+            }
+            public var query: Operations.getAlbumList2.Input.Query
+            /// - Remark: Generated from `#/paths/getAlbumList2/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getAlbumList2.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getAlbumList2.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.getAlbumList2.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.getAlbumList2.Input.Query,
+                headers: Operations.getAlbumList2.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content/json/subsonic-response/value2/albumList2`.
+                                public var albumList2: Components.Schemas.AlbumList2
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - albumList2:
+                                public init(albumList2: Components.Schemas.AlbumList2) {
+                                    self.albumList2 = albumList2
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case albumList2
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.getAlbumList2.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.getAlbumList2.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.getAlbumList2.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.getAlbumList2.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/getAlbumList2/GET/responses/200/content/application\/json`.
+                    case json(Operations.getAlbumList2.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.getAlbumList2.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.getAlbumList2.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.getAlbumList2.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//getAlbumList2/get(getAlbumList2)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.getAlbumList2.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.getAlbumList2.Output.Ok {
                 get throws {
                     switch self {
                     case let .ok(response):
@@ -3951,6 +4870,510 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.ok`.
             /// - SeeAlso: `.ok`.
             public var ok: Operations.getPlaylist.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `POST /createPlaylist`.
+    /// - Remark: Generated from `#/paths//createPlaylist/post(createPlaylist)`.
+    public enum createPlaylist {
+        public static let id: Swift.String = "createPlaylist"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/createPlaylist/POST/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/createPlaylist/POST/query/playlistId`.
+                public var playlistId: Swift.String?
+                /// - Remark: Generated from `#/paths/createPlaylist/POST/query/name`.
+                public var name: Swift.String?
+                /// - Remark: Generated from `#/paths/createPlaylist/POST/query/songId`.
+                public var songId: [Swift.String]?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - playlistId:
+                ///   - name:
+                ///   - songId:
+                public init(
+                    playlistId: Swift.String? = nil,
+                    name: Swift.String? = nil,
+                    songId: [Swift.String]? = nil
+                ) {
+                    self.playlistId = playlistId
+                    self.name = name
+                    self.songId = songId
+                }
+            }
+            public var query: Operations.createPlaylist.Input.Query
+            /// - Remark: Generated from `#/paths/createPlaylist/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.createPlaylist.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.createPlaylist.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.createPlaylist.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.createPlaylist.Input.Query = .init(),
+                headers: Operations.createPlaylist.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content/json/subsonic-response`.
+                        public struct subsonic_hyphen_responsePayload: Codable, Hashable, Sendable {
+                            /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content/json/subsonic-response/value1`.
+                            public var value1: Components.Schemas.Response
+                            /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content/json/subsonic-response/value2`.
+                            public struct Value2Payload: Codable, Hashable, Sendable {
+                                /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content/json/subsonic-response/value2/playlist`.
+                                public var playlist: Components.Schemas.PlaylistWithSongs
+                                /// Creates a new `Value2Payload`.
+                                ///
+                                /// - Parameters:
+                                ///   - playlist:
+                                public init(playlist: Components.Schemas.PlaylistWithSongs) {
+                                    self.playlist = playlist
+                                }
+                                public enum CodingKeys: String, CodingKey {
+                                    case playlist
+                                }
+                            }
+                            /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content/json/subsonic-response/value2`.
+                            public var value2: Operations.createPlaylist.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            /// Creates a new `subsonic_hyphen_responsePayload`.
+                            ///
+                            /// - Parameters:
+                            ///   - value1:
+                            ///   - value2:
+                            public init(
+                                value1: Components.Schemas.Response,
+                                value2: Operations.createPlaylist.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload.Value2Payload
+                            ) {
+                                self.value1 = value1
+                                self.value2 = value2
+                            }
+                            public init(from decoder: any Decoder) throws {
+                                value1 = try .init(from: decoder)
+                                value2 = try .init(from: decoder)
+                            }
+                            public func encode(to encoder: any Encoder) throws {
+                                try value1.encode(to: encoder)
+                                try value2.encode(to: encoder)
+                            }
+                        }
+                        /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Operations.createPlaylist.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Operations.createPlaylist.Output.Ok.Body.jsonPayload.subsonic_hyphen_responsePayload) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/createPlaylist/POST/responses/200/content/application\/json`.
+                    case json(Operations.createPlaylist.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.createPlaylist.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.createPlaylist.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.createPlaylist.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//createPlaylist/post(createPlaylist)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.createPlaylist.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.createPlaylist.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `POST /updatePlaylist`.
+    /// - Remark: Generated from `#/paths//updatePlaylist/post(updatePlaylist)`.
+    public enum updatePlaylist {
+        public static let id: Swift.String = "updatePlaylist"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/updatePlaylist/POST/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/updatePlaylist/POST/query/playlistId`.
+                public var playlistId: Swift.String
+                /// - Remark: Generated from `#/paths/updatePlaylist/POST/query/name`.
+                public var name: Swift.String?
+                /// - Remark: Generated from `#/paths/updatePlaylist/POST/query/comment`.
+                public var comment: Swift.String?
+                /// - Remark: Generated from `#/paths/updatePlaylist/POST/query/public`.
+                public var _public: Swift.Bool?
+                /// - Remark: Generated from `#/paths/updatePlaylist/POST/query/songIdToAdd`.
+                public var songIdToAdd: [Swift.String]?
+                /// - Remark: Generated from `#/paths/updatePlaylist/POST/query/songIndexToRemove`.
+                public var songIndexToRemove: [Swift.Int]?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - playlistId:
+                ///   - name:
+                ///   - comment:
+                ///   - _public:
+                ///   - songIdToAdd:
+                ///   - songIndexToRemove:
+                public init(
+                    playlistId: Swift.String,
+                    name: Swift.String? = nil,
+                    comment: Swift.String? = nil,
+                    _public: Swift.Bool? = nil,
+                    songIdToAdd: [Swift.String]? = nil,
+                    songIndexToRemove: [Swift.Int]? = nil
+                ) {
+                    self.playlistId = playlistId
+                    self.name = name
+                    self.comment = comment
+                    self._public = _public
+                    self.songIdToAdd = songIdToAdd
+                    self.songIndexToRemove = songIndexToRemove
+                }
+            }
+            public var query: Operations.updatePlaylist.Input.Query
+            /// - Remark: Generated from `#/paths/updatePlaylist/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.updatePlaylist.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.updatePlaylist.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.updatePlaylist.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.updatePlaylist.Input.Query,
+                headers: Operations.updatePlaylist.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/updatePlaylist/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/updatePlaylist/POST/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/updatePlaylist/POST/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Components.Schemas.Response
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Components.Schemas.Response) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/updatePlaylist/POST/responses/200/content/application\/json`.
+                    case json(Operations.updatePlaylist.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.updatePlaylist.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.updatePlaylist.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.updatePlaylist.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//updatePlaylist/post(updatePlaylist)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.updatePlaylist.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.updatePlaylist.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// - Remark: HTTP `POST /deletePlaylist`.
+    /// - Remark: Generated from `#/paths//deletePlaylist/post(deletePlaylist)`.
+    public enum deletePlaylist {
+        public static let id: Swift.String = "deletePlaylist"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/deletePlaylist/POST/query`.
+            public struct Query: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/deletePlaylist/POST/query/id`.
+                public var id: Swift.String
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                public init(id: Swift.String) {
+                    self.id = id
+                }
+            }
+            public var query: Operations.deletePlaylist.Input.Query
+            /// - Remark: Generated from `#/paths/deletePlaylist/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.deletePlaylist.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.deletePlaylist.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.deletePlaylist.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.deletePlaylist.Input.Query,
+                headers: Operations.deletePlaylist.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/deletePlaylist/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/deletePlaylist/POST/responses/200/content/json`.
+                    public struct jsonPayload: Codable, Hashable, Sendable {
+                        /// - Remark: Generated from `#/paths/deletePlaylist/POST/responses/200/content/json/subsonic-response`.
+                        public var subsonic_hyphen_response: Components.Schemas.Response
+                        /// Creates a new `jsonPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - subsonic_hyphen_response:
+                        public init(subsonic_hyphen_response: Components.Schemas.Response) {
+                            self.subsonic_hyphen_response = subsonic_hyphen_response
+                        }
+                        public enum CodingKeys: String, CodingKey {
+                            case subsonic_hyphen_response = "subsonic-response"
+                        }
+                    }
+                    /// - Remark: Generated from `#/paths/deletePlaylist/POST/responses/200/content/application\/json`.
+                    case json(Operations.deletePlaylist.Output.Ok.Body.jsonPayload)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Operations.deletePlaylist.Output.Ok.Body.jsonPayload {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.deletePlaylist.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.deletePlaylist.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// ok
+            ///
+            /// - Remark: Generated from `#/paths//deletePlaylist/post(deletePlaylist)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.deletePlaylist.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.deletePlaylist.Output.Ok {
                 get throws {
                     switch self {
                     case let .ok(response):

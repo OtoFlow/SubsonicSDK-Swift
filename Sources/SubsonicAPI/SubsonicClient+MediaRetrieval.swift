@@ -3,6 +3,7 @@ import Foundation
 public typealias StructuredLyrics = Components.Schemas.StructuredLyrics
 
 extension SubsonicClient {
+
     public func stream(
         id: String,
         maxBitRate: Int? = nil,
@@ -25,16 +26,20 @@ extension SubsonicClient {
                 value.map { URLQueryItem(name: key, value: $0) }
             }
         return configuration.serverURL
+            .chained
             .appending(path: "rest/stream.view")
             .appending(queryItems: queryItems + universalQueryItems())
+            .value
     }
 
     public func download(id: String) -> URL {
         configuration.serverURL
+            .chained
             .appending(path: "rest/download")
             .appending(queryItems: [
                 URLQueryItem(name: "id", value: id),
             ] + universalQueryItems())
+            .value
     }
 
     public func hls(
@@ -58,17 +63,21 @@ extension SubsonicClient {
                 value.map { URLQueryItem(name: key, value: $0) }
             }
         return configuration.serverURL
+            .chained
             .appending(path: "rest/hls.m3u8")
             .appending(queryItems: queryItems + universalQueryItems())
+            .value
     }
 
     public func getCaptions(id: String, format: String? = nil) -> URL {
         configuration.serverURL
+            .chained
             .appending(path: "rest/getCaptions")
             .appending(queryItems: [
                 URLQueryItem(name: "id", value: id),
                 URLQueryItem(name: "format", value: format),
             ] + universalQueryItems())
+            .value
     }
 
     public func getCoverArt(id: String, size: Int? = nil) -> URL {
@@ -79,16 +88,20 @@ extension SubsonicClient {
             value.map { URLQueryItem(name: key, value: $0) }
         }
         return configuration.serverURL
+            .chained
             .appending(path: "rest/getCoverArt")
             .appending(queryItems: queryItems + universalQueryItems())
+            .value
     }
 
     public func getAvatar(username: String) -> URL {
         configuration.serverURL
+            .chained
             .appending(path: "rest/getAvatar")
             .appending(queryItems: [
                 URLQueryItem(name: "username", value: username),
             ] + universalQueryItems())
+            .value
     }
 
     public func getLyrics(id: String) async throws -> [StructuredLyrics] {

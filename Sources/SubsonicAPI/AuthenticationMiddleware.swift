@@ -2,7 +2,7 @@ import OpenAPIRuntime
 import Foundation
 import HTTPTypes
 
-final class AuthenticationMiddleware {
+final class AuthenticationMiddleware: Sendable {
     private let client: String
     private let device: String
     private let deviceID: String

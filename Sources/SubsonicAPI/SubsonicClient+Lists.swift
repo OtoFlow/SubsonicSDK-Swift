@@ -29,9 +29,31 @@ extension SubsonicClient {
         ).ok.body.json.subsonic_hyphen_response.value2.albumList.album
     }
 
+    public func getAlbumList2(
+        type: ListType,
+        size: Int? = nil,
+        offset: Int? = nil,
+        fromYear: Int? = nil,
+        toYear: Int? = nil,
+        genre: String? = nil,
+        musicFolderId: Int? = nil
+    ) async throws -> [AlbumID3] {
+        try await underlyingClient.getAlbumList2(
+            query: .init(
+                _type: type,
+                size: size,
+                offset: offset,
+                fromYear: fromYear,
+                toYear: toYear,
+                genre: genre,
+                musicFolderId: musicFolderId
+            )
+        ).ok.body.json.subsonic_hyphen_response.value2.albumList2.album
+    }
+
     public func getRandomSongs() async throws -> [Song] {
         try await underlyingClient.getRandomSongs()
-            .ok.body.json.subsonic_hyphen_response.value2.randomSongs.song
+            .ok.body.json.subsonic_hyphen_response.value2.randomSongs.song ?? []
     }
 
     public func getSongsByGenre(
@@ -47,7 +69,7 @@ extension SubsonicClient {
                 offset: offset,
                 musicFolderId: musicFolderId
             )
-        ).ok.body.json.subsonic_hyphen_response.value2.songsByGenre.song
+        ).ok.body.json.subsonic_hyphen_response.value2.songsByGenre.song ?? []
     }
 
     public func getStarred(musicFolderId: Int? = nil) async throws -> Starred {

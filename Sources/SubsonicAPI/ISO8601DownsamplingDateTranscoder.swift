@@ -1,7 +1,8 @@
 import Foundation
 import OpenAPIRuntime
 
-public struct ISO8601DownsamplingDateTranscoder: DateTranscoder {
+public struct ISO8601DownsamplingDateTranscoder: DateTranscoder, @unchecked Sendable {
+
     private let lock: NSLock
 
     private let locked_formatter: ISO8601DateFormatter

@@ -174,6 +174,108 @@ paths:
                         properties:
                           album:
                             $ref: '#/components/schemas/AlbumWithSongsID3'
+  /getSimilarSongs:
+    get:
+      tags:
+        - Browsing
+      operationId: getSimilarSongs
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - similarSongs
+                        properties:
+                          similarSongs:
+                            $ref: '#/components/schemas/Songs'
+  /getSimilarSongs2:
+    get:
+      tags:
+        - Browsing
+      operationId: getSimilarSongs2
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - similarSongs2
+                        properties:
+                          similarSongs2:
+                            $ref: '#/components/schemas/Songs'
+  /getTopSongs:
+    get:
+      tags:
+        - Browsing
+      operationId: getTopSongs
+      parameters:
+        - name: artist
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - topSongs
+                        properties:
+                          topSongs:
+                            $ref: '#/components/schemas/Songs'
   /getAlbumList:
     get:
       tags:
@@ -233,6 +335,65 @@ paths:
                         properties:
                           albumList:
                             $ref: '#/components/schemas/AlbumList'
+  /getAlbumList2:
+    get:
+      tags:
+        - Lists
+      operationId: getAlbumList2
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/ListType'
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: fromYear
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: toYear
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: genre
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: musicFolderId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - albumList2
+                        properties:
+                          albumList2:
+                            $ref: '#/components/schemas/AlbumList2'
   /getRandomSongs:
     get:
       tags:
@@ -543,6 +704,120 @@ paths:
                         properties:
                           playlist:
                             $ref: '#/components/schemas/PlaylistWithSongs'
+  /createPlaylist:
+    post:
+      tags:
+        - Playlists
+      operationId: createPlaylist
+      parameters:
+        - name: playlistId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: songId
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    allOf:
+                      - $ref: '#/components/schemas/Response'
+                      - type: object
+                        required:
+                          - playlist
+                        properties:
+                          playlist:
+                            $ref: '#/components/schemas/PlaylistWithSongs'
+  /updatePlaylist:
+    post:
+      tags:
+        - Playlists
+      operationId: updatePlaylist
+      parameters:
+        - name: playlistId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: comment
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: public
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: songIdToAdd
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: songIndexToRemove
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    $ref: '#/components/schemas/Response'
+  /deletePlaylist:
+    post:
+      tags:
+        - Playlists
+      operationId: deletePlaylist
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              schema:
+                required:
+                  - subsonic-response
+                properties:
+                  subsonic-response:
+                    $ref: '#/components/schemas/Response'
   /getLyricsBySongId:
     get:
       tags:
@@ -757,6 +1032,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Album'
+    AlbumList2:
+      required:
+        - album
+      type: object
+      properties:
+        album:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlbumID3'
     Album:
       type: object
       $ref: '#/components/schemas/Child'
@@ -814,6 +1098,10 @@ components:
           format: date-time
         userRating:
           type: integer
+        recordLabels:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordLabel'
         musicBrainzId:
           type: string
         genres:
@@ -922,8 +1210,6 @@ components:
       allOf:
         - $ref: '#/components/schemas/Playlist'
         - type: object
-          required:
-            - entry
           properties:
             entry:
               type: array
@@ -995,8 +1281,6 @@ components:
           type: string
           format: date-time
     Songs:
-      required:
-        - song
       type: object
       properties:
         song:
@@ -1128,6 +1412,13 @@ components:
         displayAlbumArtist:
           type: string
     ItemGenre:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+    RecordLabel:
       required:
         - name
       type: object

@@ -13,4 +13,41 @@ extension SubsonicClient {
         try await underlyingClient.getPlaylist(query: .init(id: id))
             .ok.body.json.subsonic_hyphen_response.value2.playlist
     }
+
+    public func createPlaylist(name: String, songIds: [String]? = nil) async throws -> PlaylistWithSongs {
+        try await underlyingClient.createPlaylist(
+            query: .init(
+                playlistId: nil,
+                name: name,
+                songId: songIds
+            )
+        ).ok.body.json.subsonic_hyphen_response.value2.playlist
+    }
+
+    @discardableResult
+    public func updatePlaylist(
+        id: String,
+        name: String? = nil,
+        comment: String? = nil,
+        public isPublic: Bool? = nil,
+        songIdsToAdd: [String]? = nil,
+        songIndexsToRemove: [Int]? = nil
+    ) async throws -> Bool {
+        try await underlyingClient.updatePlaylist(
+            query: .init(
+                playlistId: id,
+                name: name,
+                comment: comment,
+                _public: isPublic,
+                songIdToAdd: songIdsToAdd,
+                songIndexToRemove: songIndexsToRemove
+            )
+        ).ok.body.json.subsonic_hyphen_response.status == .ok
+    }
+
+    @discardableResult
+    public func deletePlaylist(id: String) async throws -> Bool {
+        try await underlyingClient.deletePlaylist(query: .init(id: id))
+            .ok.body.json.subsonic_hyphen_response.status == .ok
+    }
 }

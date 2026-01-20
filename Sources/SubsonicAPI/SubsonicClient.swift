@@ -2,8 +2,8 @@ import Foundation
 import OpenAPIRuntime
 import OpenAPIURLSession
 
-public final class SubsonicClient {
-    public struct Configuration {
+public final class SubsonicClient: Sendable {
+    public struct Configuration: Sendable {
         public let serverURL: URL
         public let client: String
         public let version: String
